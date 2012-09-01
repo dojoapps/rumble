@@ -26,7 +26,7 @@ namespace CrushMe.Database
         {
             AddOrUpdateUser(db, 100000193426007, "Felipe Amorim");
             AddOrUpdateUser(db, 734963830, "Vicente de Alencar");
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 11; i++)
             {
                 AddOrUpdateUser(db, 100000 + i, "Test " + i);
             }

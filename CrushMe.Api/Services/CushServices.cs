@@ -34,7 +34,6 @@ namespace CrushMe.Api.Services
             };
 
             db.Crushes.Add(crush);
-
             db.SaveChanges();
 
             return crush;
@@ -43,7 +42,7 @@ namespace CrushMe.Api.Services
         private static List<CrushCandidate> CandidatesFor(CrushMeContext db, long crusherId, long targetId)
         {
             var candidates = (from u in db.Users
-                              where u.FbId != targetId
+                              where u.FbId != targetId && u.FbId != crusherId
                               orderby Guid.NewGuid()
                               select u)
                               .Take(CrushCandidatesLength - 1).ToList()
