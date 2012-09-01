@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace CrushMe.Api.Model.UserData
+namespace CrushMe.Api.Models.UserData
 {
     public class NewUserApiModel
     {

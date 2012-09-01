@@ -141,9 +141,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiModel\User.cs" />
     <Compile Include="App_Start\AttributeRoutingHttp.cs" />
-    <Compile Include="Model\UserData\NewUserApiModel.cs" />
+    <Compile Include="Models\UserData\NewUserApiModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FacebookFilter.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
