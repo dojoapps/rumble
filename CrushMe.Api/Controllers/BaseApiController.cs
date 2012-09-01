@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CrushMe.Api.ApiModel;
 using CrushMe.Api.FBData;
 using CrushMe.Database;
 using CrushMe.Database.Models;
@@ -18,8 +17,10 @@ namespace CrushMe.Api.Controllers
         public string FbAccessToken { get; private set; }
         public User CurrentUser { get; set; }
 
-        public BaseApiController()
+        protected override void Initialize(System.Web.Http.Controllers.HttpControllerContext controllerContext)
         {
+            base.Initialize(controllerContext);
+        
             if(Request.Headers.Contains(Constants.FbTokenHeader))
             {
                 FbAccessToken = Request.Headers.GetValues(Constants.FbTokenHeader).ToString();

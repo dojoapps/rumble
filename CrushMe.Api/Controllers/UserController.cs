@@ -11,21 +11,34 @@ namespace CrushMe.Api.Controllers
 {
     public class UserController : BaseApiController
     {
-        public User Put(string fbId)
+        public User Put(long fbId)
         {
+            User newUser;
             if(!db.Users.Any(user => user.FbId == fbId))
             {
-                CurrentUser = ApiExplorer.UserFactory(FbAccessToken);
-                db.Users.Any(CurrentUser);
+                newUser = ApiExplorer.UserFactory(FbAccessToken, true);
+                db.Users.Add(CurrentUser);
             }
             else
             {
-                CurrentUser = db.Users.FirstOrDefault(user1 => user1.FbId == fbId);
-                ApiExplorer.UserUpdate(FbAccessToken, ref CurrentUser);
+                newUser = db.Users.FirstOrDefault(user1 => user1.FbId == fbId);
+                ApiExplorer.UserUpdate(FbAccessToken, ref newUser);
+
+                if (!newUser.IsActive) newUser.IsActive = true;
             }
 
+            CurrentUser = newUser;
+
             db.SaveChanges();
-            return currentUser;
+            return CurrentUser;
+        }
+
+        public List<User> Friends()
+        {
+            var user = CurrentUser;
+            ApiExplorer.UpdateFriends(FbAccessToken, ref user);
+
+            return user.Friends;
         }
     }
 }
