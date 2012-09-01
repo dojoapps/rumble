@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using AttributeRouting.Web.Http;
 using CrushMe.Api.Models.Crushes;
+using CrushMe.Api.Infrastructure;
 
 namespace CrushMe.Api.Controllers
 {
@@ -14,16 +15,10 @@ namespace CrushMe.Api.Controllers
         [GET("/api/crushes/received")]
         public IEnumerable<CrushReceivedApiModel> GetCrushesReceived()
         {
-            var model = new List<CrushReceivedApiModel>();
             var currentUserId = this.CurrentUser.FbId;
-            foreach (var crush in db.Crushes.Where(x => x.Target.FbId == currentUserId))
-            {
-                //model.Add(new CrushReceivedApiModel() { 
-                //    CrushDate = crush.DateCreated,
-                //    CrusherFbId = crush.CrusherId.Value,
-                //    Options = crush.o
-                //});
-            }
+            var model = db.Crushes
+                .Where(x => x.Target.FbId == currentUserId)
+                .MapTo<CrushReceivedApiModel>();
             return model;
         }
     }

@@ -27,5 +27,14 @@ namespace CrushMe.Database.Models
         public DateTime DateReplied { get; set; }
 
         public DateTime DateExpires { get; set; }
+
+        public EnumStatusCrush Status { get; set; }
+    }
+
+    public enum EnumStatusCrush
+    {
+        Pending = 0,
+        Match = 1,
+        NoMatch = 2
     }
 }
