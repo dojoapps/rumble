@@ -28,7 +28,7 @@ namespace CrushMe.Api.Services
                 Crusher = crusher,
                 DateCreated = now,
                 DateExpires = now.AddDays(30),
-                FatherCrushId = fatherCrushId,
+                FatherCrush = db.Crushes.Find(fatherCrushId),
                 Status = EnumStatusCrush.Pending,
                 Target = target
             };
