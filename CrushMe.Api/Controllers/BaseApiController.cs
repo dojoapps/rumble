@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using CrushMe.Api.ApiModel;
 using CrushMe.Api.FBData;
 using CrushMe.Database;
 using CrushMe.Database.Models;
@@ -14,19 +11,26 @@ namespace CrushMe.Api.Controllers
 {
     public class BaseApiController : ApiController
     {
-        CrushMeContext db = new CrushMeContext();
+        public CrushMeContext db = new CrushMeContext();
         public string FbAccessToken { get; private set; }
         public User CurrentUser { get; set; }
+        public FacebookClient FbClient { get; private set; }
 
         public BaseApiController()
         {
-            if(Request.Headers.Contains(Constants.FbTokenHeader))
-            {
-                FbAccessToken = Request.Headers.GetValues(Constants.FbTokenHeader).ToString();
-                var client = new FacebookClient { AccessToken = FbAccessToken };
-                dynamic me = client.Get("me");
+            FbClient = new FacebookClient();
+        }
 
-                int id = me.id;
+        protected override void Initialize(System.Web.Http.Controllers.HttpControllerContext controllerContext)
+        {
+            base.Initialize(controllerContext);
+
+            if (Request.Headers.Contains(Constants.FbTokenHeader))
+            {
+                FbClient.AccessToken = Request.Headers.GetValues(Constants.FbTokenHeader).First().ToString();
+                dynamic me = FbClient.Get("me");
+
+                long id = long.Parse(me.id);
                 CurrentUser = db.Users.Find(id);
             }
         }

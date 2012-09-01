@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace CrushMe.Api.ApiModel
+namespace CrushMe.Api.Models.UserData
 {
-    
-    public class UserAM
+    public class NewUserApiModel
     {
+        public long FbId { get; set; }
+        public string Name { get; set; }
     }
 }

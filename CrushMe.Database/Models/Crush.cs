@@ -12,10 +12,10 @@ namespace CrushMe.Database.Models
         public int Id { get; set; }
 
         public virtual User Crusher { get; set; }
-        public int? CrusherId { get; set; }
+        public long? CrusherId { get; set; }
 
         public virtual User Target { get; set; }
-        public int? TargetId { get; set; }
+        public long? TargetId { get; set; }
 
         public virtual List<CrushOption> Options { get; set; }
 
@@ -27,5 +27,14 @@ namespace CrushMe.Database.Models
         public DateTime DateReplied { get; set; }
 
         public DateTime DateExpires { get; set; }
+
+        public EnumStatusCrush Status { get; set; }
+    }
+
+    public enum EnumStatusCrush
+    {
+        Pending = 0,
+        Match = 1,
+        NoMatch = 2
     }
 }
