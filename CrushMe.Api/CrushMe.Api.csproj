@@ -164,7 +164,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Crushes\CrushReceivedApiModel.cs" />
-    <Compile Include="Models\Crushes\CrushOptionApiModel.cs" />
+    <Compile Include="Models\Crushes\CrushCandidateApiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

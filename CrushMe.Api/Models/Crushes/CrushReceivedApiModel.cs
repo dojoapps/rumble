@@ -12,6 +12,6 @@ namespace CrushMe.Api.Models.Crushes
         public long TargetFbId { get; set; }
         public DateTime CrushDate { get; set; }
         public EnumStatusCrush Status { get; set; }
-        public List<CrushOptionApiModel> Options { get; set; }
+        public List<CrushCandidateApiModel> Candidates { get; set; }
     }
 }

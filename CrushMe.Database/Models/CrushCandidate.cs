@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CrushMe.Database.Models
 {
-    public class CrushOption
+    public class CrushCandidate
     {
         public int Id { get; set; }
 
