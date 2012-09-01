@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using CrushMe.Api.FBData;
+using CrushMe.Database;
 using Facebook;
 
 namespace CrushMe.Api.App_Start
@@ -31,6 +32,7 @@ namespace CrushMe.Api.App_Start
         private bool AuthorizeRequest(HttpRequestMessage request)
         {
             bool authorized = false;
+            var db = new CrushMeContext();
             if (request.Headers.Contains(Constants.FbTokenHeader))
             {
                 var tokenValue = request.Headers.GetValues(Constants.FbTokenHeader);
@@ -40,11 +42,11 @@ namespace CrushMe.Api.App_Start
 
                     var client = new FacebookClient { AccessToken = aToken };
                     dynamic me = client.Get("me");
-                    
-                    //TODO: if db contains me.id return true
-                    //TODO: else return false
 
-                    authorized = true;
+                    if(db.Users.Any(user => user.Id == me.id))
+                    {
+                        authorized = true;
+                    }
                 }
             }
             return authorized;
