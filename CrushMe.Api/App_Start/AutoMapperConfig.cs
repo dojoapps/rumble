@@ -26,6 +26,11 @@ namespace CrushMe.Api.App_Start
                 .ForMember(x => x.CrusherFbId, o => o.MapFrom(c => c.CrusherId))
                 .ForMember(x => x.Options, o => o.MapFrom(c => c.Options))
                 .ForMember(x => x.TargetFbId, o => o.MapFrom(c => c.TargetId));
+
+            Mapper.CreateMap<Crush, CrushSentApiModel>()
+                .ForMember(x => x.CrushId, o => o.MapFrom(c => c.Id))
+                .ForMember(x => x.CrushDate, o => o.MapFrom(c => c.DateCreated))
+                .ForMember(x => x.TargetFbId, o => o.MapFrom(c => c.TargetId));
         }
     }
 }

@@ -147,6 +147,7 @@
     <Compile Include="App_Start\AttributeRoutingHttp.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="Infrastructure\AutoMapperExtensions.cs" />
+    <Compile Include="Models\Crushes\CrushSentApiModel.cs" />
     <Compile Include="Models\UserData\NewUserApiModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FacebookFilter.cs" />
@@ -162,7 +163,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Crushes\CrushApiModel.cs" />
+    <Compile Include="Models\Crushes\CrushReceivedApiModel.cs" />
     <Compile Include="Models\Crushes\CrushOptionApiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

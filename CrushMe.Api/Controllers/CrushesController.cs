@@ -21,5 +21,15 @@ namespace CrushMe.Api.Controllers
                 .MapTo<CrushReceivedApiModel>();
             return model;
         }
+
+        [GET("/api/crushes/sent")]
+        public IEnumerable<CrushSentApiModel> GetCrushesSent()
+        {
+            var currentUserId = this.CurrentUser.FbId;
+            var model = db.Crushes
+                .Where(x => x.Crusher.FbId == currentUserId)
+                .MapTo<CrushSentApiModel>();
+            return model;
+        }
     }
 }
