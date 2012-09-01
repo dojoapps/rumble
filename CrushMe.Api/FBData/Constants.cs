@@ -9,6 +9,6 @@ namespace CrushMe.Api.FBData
     {
         public const string FbAppId = "";
         public const string FbAppSecret = "";
-        public const string FbTokenHeader = "";
+        public const string FbTokenHeader = "ACCESS_TOKEN";
     }
 }
