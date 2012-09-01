@@ -143,6 +143,7 @@
   <ItemGroup>
     <Compile Include="ApiModel\User.cs" />
     <Compile Include="App_Start\AttributeRoutingHttp.cs" />
+    <Compile Include="Model\UserData\NewUserApiModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FacebookFilter.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -150,7 +151,9 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CrushesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="FBData\ApiExplorer.cs" />
     <Compile Include="FBData\Constants.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
