@@ -12,10 +12,10 @@ namespace CrushMe.Database.Models
         public int Id { get; set; }
 
         public virtual User Crusher { get; set; }
-        public int? CrusherId { get; set; }
+        public long? CrusherId { get; set; }
 
         public virtual User Target { get; set; }
-        public int? TargetId { get; set; }
+        public long? TargetId { get; set; }
 
         public virtual List<CrushOption> Options { get; set; }
 

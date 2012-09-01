@@ -10,6 +10,7 @@ namespace CrushMe.Database.Models
     public class User
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long FbId { get; set; }
 
         public string Name { get; set; }
