@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{33B663
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Database", "CrushMe.Database\CrushMe.Database.csproj", "{DDA1598D-CD97-4794-88BD-F2391C423A51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{40CC0F8F-9418-4B46-A7DF-8BC66C8E8DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40CC0F8F-9418-4B46-A7DF-8BC66C8E8DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40CC0F8F-9418-4B46-A7DF-8BC66C8E8DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDA1598D-CD97-4794-88BD-F2391C423A51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDA1598D-CD97-4794-88BD-F2391C423A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDA1598D-CD97-4794-88BD-F2391C423A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDA1598D-CD97-4794-88BD-F2391C423A51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
