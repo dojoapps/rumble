@@ -14,7 +14,7 @@ namespace CrushMe.Api.Controllers
 {
     public class BaseApiController : ApiController
     {
-        CrushMeContext db = new CrushMeContext();
+        public CrushMeContext db = new CrushMeContext();
         public string FbAccessToken { get; private set; }
         public User CurrentUser { get; set; }
 
@@ -27,7 +27,8 @@ namespace CrushMe.Api.Controllers
                 dynamic me = client.Get("me");
 
                 int id = me.id;
-                CurrentUser = db.Users.Find(id);
+                if(db.Users.Any(user => user.FbId == id))
+                    CurrentUser = db.Users.Find(id);
             }
         }
     }
