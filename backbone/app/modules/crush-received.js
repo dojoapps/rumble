@@ -28,14 +28,13 @@ function(app, Backbone, Views) {
     }
   });
 
-  // TODO: Crush Collection
   CrushReceived.List = Backbone.Collection.extend({
     model: CrushReceived.Model,
 
     url: "/api/crushes/received"
   });
 
-  CurshReceived.Views = Views;
+  CrushReceived.Views = Views;
   
   // Required, return the module for AMD compliance
   return CrushReceived;

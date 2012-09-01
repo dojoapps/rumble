@@ -5,6 +5,11 @@ define([
   "backbone",
   "handlebars",
 
+  "bootstrap",
+
+  // Mocking
+  "mocking/apimock",
+
   // Plugins.
   "plugins/backbone.layoutmanager"
 ],
@@ -20,7 +25,7 @@ function($, _, Backbone, Handlebars) {
     constants : {
       CRUSH_DIRECTION : {
         RECEIVED : 0,
-        TO_USER : 1
+        SENT : 1
       },
       CRUSH_STATUS : {
         PENDING : 0,
@@ -87,7 +92,6 @@ function($, _, Backbone, Handlebars) {
     js.src = "//connect.facebook.net/en_US/all.js";
     ref.parentNode.insertBefore(js, ref);
   }(document));
-
 
 
   // Mix Backbone.Events, modules, and layout management into the app object.

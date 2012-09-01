@@ -1,14 +1,5 @@
-<tr class="info">
-  <td>#{{position}}</td>
-  <td>
-    <ul class="unstyled">
-      {{#candidates}}
-      <li class="pull-left">
-        <div class="thumbnail">
-          <img src="http://graph.facebook.com/{{id}}/picture" alt="{{name}}" >
-        </div>
-      </li>
-      {{/candidates}}
-    </ul>
-  </td>
-</tr>
+<div class="crush-status-{{status}} crush-request">
+  {{#each candidates}}
+  <img src="http://graph.facebook.com/{{id}}/picture" alt="{{name}}" >
+  {{/each}}
+</div>

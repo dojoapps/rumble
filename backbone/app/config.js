@@ -8,9 +8,11 @@ require.config({
     // JavaScript folders.
     libs: "../assets/js/libs",
     plugins: "../assets/js/plugins",
+    mocking: "../assets/js/mocking",
 
     // Libraries.
     jquery: "../assets/js/libs/jquery",
+    bootstrap: "../assets/js/libs/bootstrap",
     lodash: "../assets/js/libs/lodash",
     backbone: "../assets/js/libs/backbone",
     handlebars: "../assets/js/libs/handlebars"
@@ -23,8 +25,15 @@ require.config({
       exports: "Backbone"
     },
 
+    handlebars: {
+      exports: "Handlebars"
+    },
+
+    bootstrap: ["jquery"],
+
     // Backbone.LayoutManager depends on Backbone.
-    "plugins/backbone.layoutmanager": ["backbone"]
+    "plugins/backbone.layoutmanager": ["backbone"],
+    "mocking/apimock" : ["backbone"]
   }
 
 });

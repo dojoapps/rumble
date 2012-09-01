@@ -16,27 +16,33 @@ function(app,CrushSent,CrushReceived) {
     },
 
     index: function() {
-      var crushesSent = CrushSent.List(),
-          crushesReceived = CrushReceived.List();
+      var crushesSent = new CrushSent.List(),
+          crushesReceived = new CrushReceived.List();
 
-      app.useLayout("main").setView({
-        ".crushes-replied": new CrushReceived.Views.List({
-          collection: _.filter(crushesReceived,function(crush) {
-            return crush.get("status") === Crush.STATUS.REPLIED;
-          })
-        }),
+      crushesReceived.fetch();
+
+      var l = app.useLayout("main");
+
+      l.setViews({
         ".crushes-pending": new CrushReceived.Views.List({
-          collection: _.filter(crushesReceived,function(crush) {
-            return crush.get("status") === Crush.STATUS.PENDING;
-          })
+          collection: new CrushReceived.List(crushesReceived.filter(function(crush) {
+            return crush.get("status") === app.constants.CRUSH_STATUS.PENDING;
+          }))
+        }),
+        ".crushes-replied": new CrushReceived.Views.List({
+          collection: new CrushReceived.List(crushesReceived.filter(function(crush) {
+            return crush.get("status") != app.constants.CRUSH_STATUS.PENDING;
+          }))
         })/*,
         ".sent": new CrushSent.Views.List({
           collection : crushesSent
         })*/
       }).render();
 
+
+
       /*crushsSent.fetch();*/
-      crushesReceived.fetch();
+      
     },
 
     detail: function(direction, crush_id) {
