@@ -32,7 +32,7 @@ function(app, Backbone, Views) {
   CrushReceived.List = Backbone.Collection.extend({
     model: CrushReceived.Model,
 
-    url: "/crushes/received"
+    url: "/api/crushes/received"
   });
 
   CurshReceived.Views = Views;

@@ -20,12 +20,12 @@ function(app,CrushSent,CrushReceived) {
           crushesReceived = CrushReceived.List();
 
       app.useLayout("main").setView({
-        ".received": new CrushReceived.Views.List({
+        ".crushes-replied": new CrushReceived.Views.List({
           collection: _.filter(crushesReceived,function(crush) {
-            return crush.get("status") === Crush.STATUS.RECEIVED;
+            return crush.get("status") === Crush.STATUS.REPLIED;
           })
         }),
-        ".pending": new CrushReceived.Views.List({
+        ".crushes-pending": new CrushReceived.Views.List({
           collection: _.filter(crushesReceived,function(crush) {
             return crush.get("status") === Crush.STATUS.PENDING;
           })

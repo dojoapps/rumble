@@ -11,7 +11,7 @@ function(app, Backbone) {
 	Views.ListItem = Backbone.View.extend({
 		template: "received/item",
 
-		tagName: "li",
+		tagName: "tr",
 
 		events : {
 			"click": "details"
