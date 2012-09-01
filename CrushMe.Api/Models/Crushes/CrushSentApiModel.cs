@@ -6,12 +6,11 @@ using CrushMe.Database.Models;
 
 namespace CrushMe.Api.Models.Crushes
 {
-    public class CrushReceivedApiModel
+    public class CrushSentApiModel
     {
-        public long CrusherFbId { get; set; }
+        public int CrushId { get; set; }
         public long TargetFbId { get; set; }
         public DateTime CrushDate { get; set; }
         public EnumStatusCrush Status { get; set; }
-        public List<CrushOptionApiModel> Options { get; set; }
     }
 }

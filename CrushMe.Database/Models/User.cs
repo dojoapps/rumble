@@ -24,7 +24,7 @@ namespace CrushMe.Database.Models
         [InverseProperty("Target")]
         public List<Crush> Targeted { get; set; }
 
-        public List<CrushOption> CrushOptions { get; set; }
+        public List<CrushCandidate> CrushCandidates { get; set; }
 
         public List<User> Friends { get; set; } 
     }

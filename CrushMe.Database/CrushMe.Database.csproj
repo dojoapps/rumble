@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="CrushMeContext.cs" />
     <Compile Include="Models\Crush.cs" />
-    <Compile Include="Models\CrushOption.cs" />
+    <Compile Include="Models\CrushCandidate.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

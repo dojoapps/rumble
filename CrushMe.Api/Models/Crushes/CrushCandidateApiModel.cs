@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CrushMe.Api.Models.Crushes
 {
-    public class CrushOptionApiModel
+    public class CrushCandidateApiModel
     {
         public long FbId { get; set; }
         public string Name { get; set; }
