@@ -7,7 +7,7 @@ using System.Web;
 namespace CrushMe.Api.ApiModel
 {
     
-    public class User
+    public class UserAM
     {
     }
 }

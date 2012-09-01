@@ -43,7 +43,8 @@ namespace CrushMe.Api.App_Start
                     var client = new FacebookClient { AccessToken = aToken };
                     dynamic me = client.Get("me");
 
-                    if(db.Users.Any(user => user.Id == me.id))
+                    int id = me.id;
+                    if(db.Users.Any(user => user.Id == id))
                     {
                         authorized = true;
                     }

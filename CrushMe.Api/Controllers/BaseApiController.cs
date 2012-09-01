@@ -7,6 +7,7 @@ using System.Web.Http;
 using CrushMe.Api.ApiModel;
 using CrushMe.Api.FBData;
 using CrushMe.Database;
+using CrushMe.Database.Models;
 using Facebook;
 
 namespace CrushMe.Api.Controllers
@@ -25,7 +26,8 @@ namespace CrushMe.Api.Controllers
                 var client = new FacebookClient { AccessToken = FbAccessToken };
                 dynamic me = client.Get("me");
 
-                CurrentUser = db.Users.Find(me.id);
+                int id = me.id;
+                CurrentUser = db.Users.Find(id);
             }
         }
     }
