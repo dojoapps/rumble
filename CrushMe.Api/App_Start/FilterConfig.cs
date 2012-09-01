@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using CrushMe.Api.App_Start;
 
 namespace CrushMe.Api
 {
@@ -8,6 +9,8 @@ namespace CrushMe.Api
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new FacebookFilter());
         }
+
     }
 }
