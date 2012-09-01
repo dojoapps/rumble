@@ -5,10 +5,7 @@ define([
   "backbone",
 
   // Views
-  "modules/todo/views",
-
-  // Plugins
-  "plugins/backbone-localstorage"
+  "modules/received/views"
 ],
 
 function(app, Backbone, Views) {
@@ -25,7 +22,7 @@ function(app, Backbone, Views) {
     // Default attributes for the todo.
     defaults: {
       id: null,
-      crushOptions: [],
+      candidates: [],
       dateSent: null,
       status: null
     }

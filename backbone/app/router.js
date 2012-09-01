@@ -29,13 +29,13 @@ function(app,CrushSent,CrushReceived) {
           collection: _.filter(crushesReceived,function(crush) {
             return crush.get("status") === Crush.STATUS.PENDING;
           });
-        },
+        }/*,
         ".sent": new CrushSent.Views.List({
           collection : crushesSent
-        })
+        })*/
       }).render();
 
-      crushsSent.fetch();
+      /*crushsSent.fetch();*/
       crushesReceived.fetch();
     },
 

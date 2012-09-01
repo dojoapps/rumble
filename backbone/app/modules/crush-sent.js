@@ -5,10 +5,7 @@ define([
   "backbone",
 
   // Views
-  "modules/todo/views",
-
-  // Plugins
-  "plugins/backbone-localstorage"
+  "modules/todo/views"
 ],
 
 function(app, Backbone, Views) {
