@@ -108,6 +108,8 @@ module.exports = function(grunt) {
       files: { "favicon.ico": "favicon.ico" },
 
       debug: {
+        host : "localhost",
+        port : 57324,
         // Ensure the favicon is mapped correctly.
         files: { "favicon.ico": "favicon.ico" },
 
@@ -164,12 +166,14 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.loadNpmTasks('grunt-less');
+
   // The debug task will remove all contents inside the dist/ folder, lint
   // all your code, precompile all the underscore templates into
   // dist/debug/templates.js, compile all the application code into
   // dist/debug/require.js, and then concatenate the require/define shim
   // almond.js and dist/debug/templates.js into the require.js file.
-  grunt.registerTask("debug", "clean lint jst requirejs concat");
+  grunt.registerTask("debug", "clean lint handlebars requirejs concat");
 
   // The release task will run the debug tasks and then minify the
   // dist/debug/require.js file and CSS files.
