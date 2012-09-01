@@ -3,12 +3,13 @@ define([
   "jquery",
   "lodash",
   "backbone",
+  "handlebars"
 
   // Plugins.
   "plugins/backbone.layoutmanager"
 ],
 
-function($, _, Backbone) {
+function($, _, Backbone, Handlebars) {
 
   // Provide a global location to place configuration settings and module
   // creation.
@@ -32,7 +33,7 @@ function($, _, Backbone) {
 
       if (!JST[path]) {
         $.ajax({ url: app.root + path, async: false }).then(function(contents) {
-          JST[path] = _.template(contents);
+          JST[path] = Handlebars.compile(contents);
         });
       } 
       
