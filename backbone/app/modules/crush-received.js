@@ -14,24 +14,17 @@ define([
 function(app, Backbone, Views) {
 
   // Create a new module
-  var Crush = app.module();
+  var CrushReceived = app.module();
 
-  Crush.DIRECTIONS = {
-    FROM_USER : 0,
-    TO_USER : 1
-  };
+  CrushReceived.Status = {
+    PENDING: 0,
+    REPLIED: 1
+  }
 
-  Crush.STATUS = {
-    PENDING : 0,
-    MATCH : 1,
-    NO_MATCH : 2
-  };
-
-  Crush.Model = Backbone.Model.extend({
+  CrushReceived.Model = Backbone.Model.extend({
     // Default attributes for the todo.
     defaults: {
       id: null,
-      senderId: null,
       crushOptions: [],
       dateSent: null,
       status: null
@@ -39,8 +32,13 @@ function(app, Backbone, Views) {
   });
 
   // TODO: Crush Collection
+  CrushReceived.List = Backbone.Collection.extend({
+    model : CrushReceived.Model,
+
+    url : "/crushes/received"
+  });
   
   // Required, return the module for AMD compliance
-  return Crush;
+  return CrushReceived;
 
 });

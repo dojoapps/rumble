@@ -16,7 +16,18 @@ function($, _, Backbone, Handlebars) {
   var app = {
     // The root path to run the application.
     root: "/",
-    authResponse : null
+    authResponse : null,
+    contants : {
+      Crush.DIRECTIONS : {
+        FROM_USER : 0,
+        TO_USER : 1
+      },
+      Crush.STATUS : {
+        PENDING : 0,
+        MATCH : 1,
+        NO_MATCH : 2
+      }
+    }
   };
 
   // Localize or create a new JavaScript Template object.
@@ -53,8 +64,13 @@ function($, _, Backbone, Handlebars) {
     });
 
     FB.Event.subscribe('auth.authResponseChange', function(response) {
-      if ( response.status === 'conntected' ) {
+      if ( response.status === 'connected' ) {
         app.authResponse = response.authResponse; 
+        $.ajaxSetup({
+          headers : {
+            ACCESS_TOKEN : response.authResponse.accessToken;
+          }
+        });
       } else if (response.status === 'not_authorized') {
         console.log("FB: Sem permissao", response);
       } else {
@@ -63,14 +79,16 @@ function($, _, Backbone, Handlebars) {
     });
   };
 
-    // Load the SDK Asynchronously
-    (function(d){
-       var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement('script'); js.id = id; js.async = true;
-       js.src = "//connect.facebook.net/en_US/all.js";
-       ref.parentNode.insertBefore(js, ref);
-     }(document));
+  // Load the SDK Asynchronously
+  (function(d){
+    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    ref.parentNode.insertBefore(js, ref);
+  }(document));
+
+
 
   // Mix Backbone.Events, modules, and layout management into the app object.
   return _.extend(app, {
