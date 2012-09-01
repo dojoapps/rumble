@@ -19,12 +19,12 @@ namespace CrushMe.Database.Models
 
         public virtual List<CrushCandidate> Candidates { get; set; }
 
-        public int FatherCrushId { get; set; }
+        public int? FatherCrushId { get; set; }
         public virtual Crush FatherCrush { get; set; }
 
         public DateTime DateCreated { get; set; }
 
-        public DateTime DateReplied { get; set; }
+        public DateTime? DateReplied { get; set; }
 
         public DateTime DateExpires { get; set; }
 

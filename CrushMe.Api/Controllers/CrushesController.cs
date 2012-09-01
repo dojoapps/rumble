@@ -7,6 +7,7 @@ using System.Web.Http;
 using AttributeRouting.Web.Http;
 using CrushMe.Api.Models.Crushes;
 using CrushMe.Api.Infrastructure;
+using CrushMe.Api.Services;
 
 namespace CrushMe.Api.Controllers
 {
@@ -30,6 +31,13 @@ namespace CrushMe.Api.Controllers
                 .Where(x => x.Crusher.FbId == currentUserId)
                 .MapTo<CrushSentApiModel>();
             return model;
+        }
+
+        [POST("/api/crushes/sent/{fbid}")]
+        public CrushSentApiModel Crush(long fbid, int? crushFather = null)
+        {
+            return CrushServices.Crush(db, CurrentUser.FbId, fbid, crushFather)
+                .MapTo<CrushSentApiModel>();
         }
     }
 }

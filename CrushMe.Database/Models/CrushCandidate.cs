@@ -12,7 +12,7 @@ namespace CrushMe.Database.Models
 
         [Required]
         public virtual User User { get; set; }
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         [Required]
         public virtual Crush Crush { get; set; }
