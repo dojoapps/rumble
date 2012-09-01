@@ -28,7 +28,7 @@ describe("simple tests", function() {
 
 describe("setUp/tearDown", function() {
   beforeEach(function() {
-    // console.log("Before");
+    console.log("Before");
   });
 
   afterEach(function() {

@@ -16,7 +16,7 @@ function(app, Backbone, Views) {
   CrushReceived.Status = {
     PENDING: 0,
     REPLIED: 1
-  }
+  };
 
   CrushReceived.Model = Backbone.Model.extend({
     // Default attributes for the todo.
@@ -30,10 +30,12 @@ function(app, Backbone, Views) {
 
   // TODO: Crush Collection
   CrushReceived.List = Backbone.Collection.extend({
-    model : CrushReceived.Model,
+    model: CrushReceived.Model,
 
-    url : "/crushes/received"
+    url: "/crushes/received"
   });
+
+  CurshReceived.Views = Views;
   
   // Required, return the module for AMD compliance
   return CrushReceived;

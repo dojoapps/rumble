@@ -12,7 +12,7 @@ function(app,CrushSent,CrushReceived) {
   var Router = Backbone.Router.extend({
     routes: {
       "": "index",
-      "crush/:direction/:crush_id" : "detail"
+      "crush/:direction/:crush_id": "detail"
     },
 
     index: function() {
@@ -23,13 +23,13 @@ function(app,CrushSent,CrushReceived) {
         ".received": new CrushReceived.Views.List({
           collection: _.filter(crushesReceived,function(crush) {
             return crush.get("status") === Crush.STATUS.RECEIVED;
-          });
+          })
         }),
         ".pending": new CrushReceived.Views.List({
           collection: _.filter(crushesReceived,function(crush) {
             return crush.get("status") === Crush.STATUS.PENDING;
-          });
-        }/*,
+          })
+        })/*,
         ".sent": new CrushSent.Views.List({
           collection : crushesSent
         })*/

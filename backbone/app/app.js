@@ -17,12 +17,12 @@ function($, _, Backbone, Handlebars) {
     // The root path to run the application.
     root: "/",
     authResponse : null,
-    contants : {
-      Crush.DIRECTIONS : {
-        FROM_USER : 0,
+    constants : {
+      CRUSH_DIRECTION : {
+        RECEIVED : 0,
         TO_USER : 1
       },
-      Crush.STATUS : {
+      CRUSH_STATUS : {
         PENDING : 0,
         MATCH : 1,
         NO_MATCH : 2
@@ -68,7 +68,7 @@ function($, _, Backbone, Handlebars) {
         app.authResponse = response.authResponse; 
         $.ajaxSetup({
           headers : {
-            ACCESS_TOKEN : response.authResponse.accessToken;
+            ACCESS_TOKEN : response.authResponse.accessToken
           }
         });
       } else if (response.status === 'not_authorized') {

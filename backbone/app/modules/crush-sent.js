@@ -5,7 +5,7 @@ define([
   "backbone",
 
   // Views
-  "modules/todo/views"
+  "modules/sent/views"
 ],
 
 function(app, Backbone, Views) {
@@ -30,6 +30,8 @@ function(app, Backbone, Views) {
 
     url : "/crushes/sent"
   });
+
+  CrushSent.Views = Views;
   
   // Required, return the module for AMD compliance
   return CrushSent;
