@@ -166,7 +166,6 @@
     <Compile Include="Models\Crushes\CrushReceivedApiModel.cs" />
     <Compile Include="Models\Crushes\CrushCandidateApiModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CushServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

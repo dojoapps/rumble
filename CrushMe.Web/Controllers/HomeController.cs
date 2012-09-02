@@ -44,7 +44,7 @@ namespace CrushMe.Web.Controllers
                     {
                         user = new User()
                         {
-                            FbId = id,
+                            Id = id,
                             IsActive = true,
                             Name = (string)me.name
                         };

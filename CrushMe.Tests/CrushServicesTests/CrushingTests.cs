@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CrushMe.Api.Services;
+using CrushMe.Database.Services;
 using CrushMe.Database;
 using CrushMe.Database.Models;
 using Xunit;
@@ -25,7 +25,11 @@ namespace CrushMe.Tests.CrushServicesTests
         [Fact]
         public void CrushTest()
         {
-            var ret = CrushServices.Crush(db, CurrentUserId, TargetId, null);
+            var crushService = new CrushServices(db);
+
+            var result = crushService.Crush(CurrentUserId, TargetId, null);
+
+            var ret = result.Crush;
             Assert.NotNull(ret.Target);
             Assert.Equal(TargetId, ret.Target.Id);
             Assert.NotNull(ret.Crusher);

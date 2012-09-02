@@ -25,7 +25,7 @@ namespace CrushMe.Web.Controllers
             {
                 if (long.TryParse(User.Identity.Name, out UserId))
                 {
-                    CurrentUser = db.Users.FirstOrDefault(x => x.FbId == UserId);
+                    CurrentUser = db.Users.FirstOrDefault(x => x.Id == UserId);
 
                     if (CurrentUser == null)
                     {

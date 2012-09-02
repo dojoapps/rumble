@@ -5,22 +5,50 @@ using System.Web;
 using CrushMe.Database;
 using CrushMe.Database.Models;
 
-namespace CrushMe.Api.Services
+namespace CrushMe.Database.Services
 {
-    public static class CrushServices
+    public class CrushResult
+    {
+        public bool Success { get; set; }
+
+        public Crush Crush { get; set; }
+
+        public string Message { get; set; }
+    }
+
+    public class CrushServices
     {
         public const int CrushCandidatesLength = 10;
 
-        public static Crush Crush(CrushMeContext db, long crusherId, long targetId, int? fatherCrushId)
+        private readonly CrushMeContext db;
+
+        public CrushServices(CrushMeContext db)
         {
-            var now = DateTime.Now;
+            this.db = db;
+        }
+
+        public CrushResult Crush(long crusherId, long targetId, int? fatherCrushId)
+        {
+            var now = DateTime.UtcNow;
             var target = db.Users.Find(targetId);
             var crusher = db.Users.Find(crusherId);
 
             if (target == null || crusher == null)
-                throw new ArgumentNullException();
+                return new CrushResult()
+                {
+                    Success = false
+                };
 
-            var candidates = CandidatesFor(db, crusherId, targetId);
+            if (db.Crushes.Count(x => x.CrusherId == crusherId && x.TargetId == targetId && x.Status == EnumStatusCrush.Pending) > 3)
+            {
+                return new CrushResult()
+                {
+                    Success = false,
+                    Message = "Você já possui mais de 3 crushes em aberto para esta pessoa, espere ela responder antes de mandar um novo!"
+                };
+            }
+
+            var candidates = this.CandidatesFor(crusherId, targetId);
 
             var crush = new Crush()
             {
@@ -36,10 +64,13 @@ namespace CrushMe.Api.Services
             db.Crushes.Add(crush);
             db.SaveChanges();
 
-            return crush;
+            return new CrushResult() {
+                Success = true,
+                Crush = crush
+            };
         }
 
-        private static List<CrushCandidate> CandidatesFor(CrushMeContext db, long crusherId, long targetId)
+        private List<CrushCandidate> CandidatesFor(long crusherId, long targetId)
         {
             var candidates = (from u in db.Users
                               where u.Id != targetId && u.Id != crusherId
