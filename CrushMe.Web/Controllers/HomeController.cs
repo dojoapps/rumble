@@ -1,4 +1,5 @@
 ﻿using AttributeRouting.Web.Mvc;
+using CrushMe.Database;
 using CrushMe.Database.Models;
 using Facebook;
 using Newtonsoft.Json;
@@ -13,8 +14,10 @@ using System.Web.Security;
 namespace CrushMe.Web.Controllers
 {
     [AllowAnonymous]
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
+        public CrushMeContext db = new CrushMeContext();
+
         //
         // GET: /Home/
         [Route("/")]
@@ -47,13 +50,19 @@ namespace CrushMe.Web.Controllers
                         };
 
                         db.Users.Add(user);
-                        db.SaveChanges();
                     }
                     else if (user.IsActive == false)
                     {
                         user.IsActive = true;
-                        db.SaveChanges();
                     }
+
+                    // Atualiza os amigos do usuários
+                    /*dynamic friendsDynamic = client.Get("me/friends");
+                    List<dynamic> friends = JsonConvert.DeserializeObject<List<dynamic>>(friendsDynamic.data.ToString());
+
+                    user.Friends = friends.Select(x => new User() { Name = x.name, FbId = x.id }).ToList();*/
+
+                    db.SaveChanges();
 
                     FormsAuthentication.SetAuthCookie(id.ToString(), false);
 

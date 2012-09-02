@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using CrushMe.Api.FBData;
+using CrushMe.Database.FBData;
 using CrushMe.Database.Models;
 
 namespace CrushMe.Api.Controllers

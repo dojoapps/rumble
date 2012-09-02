@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CrushMe.Api.FBData
+namespace CrushMe.Database.FBData
 {
     public class Constants
     {

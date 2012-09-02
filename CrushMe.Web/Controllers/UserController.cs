@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CrushMe.Database.Infrastructure;
+using CrushMe.Web.Models;
 
 namespace CrushMe.Web.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         //
         // GET: /User/
@@ -17,5 +19,18 @@ namespace CrushMe.Web.Controllers
             return View();
         }
 
+        [GET("/crushes/received")]
+        public ActionResult CrushesReceived(int page=0)
+        {
+            var crushesList = db.Crushes.Where(x => x.TargetId == UserId)
+                .OrderByDescending(x => x.DateCreated)
+                .Skip(page).Take(10)
+                .MapTo<CrushReceivedViewModel>();
+           
+            return Json(new CrushesReceivedListViewModel() {
+                Page = page,
+                Crushes = crushesList
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using CrushMe.Api.FBData;
+using CrushMe.Database.FBData;
 using CrushMe.Database;
 using Facebook;
 

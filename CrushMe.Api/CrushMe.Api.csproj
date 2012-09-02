@@ -149,7 +149,6 @@
   <ItemGroup>
     <Compile Include="App_Start\AttributeRoutingHttp.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
-    <Compile Include="Infrastructure\AutoMapperExtensions.cs" />
     <Compile Include="Models\Crushes\CrushSentApiModel.cs" />
     <Compile Include="Models\UserData\NewUserApiModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -161,8 +160,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="FBData\ApiExplorer.cs" />
-    <Compile Include="FBData\Constants.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

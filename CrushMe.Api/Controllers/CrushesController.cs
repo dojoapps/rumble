@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using AttributeRouting.Web.Http;
 using CrushMe.Api.Models.Crushes;
-using CrushMe.Api.Infrastructure;
+using CrushMe.Database.Infrastructure;
 using CrushMe.Api.Services;
 
 namespace CrushMe.Api.Controllers

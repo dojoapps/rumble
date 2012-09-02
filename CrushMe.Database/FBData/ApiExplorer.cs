@@ -6,7 +6,7 @@ using CrushMe.Database.Models;
 using Facebook;
 using Newtonsoft.Json;
 
-namespace CrushMe.Api.FBData
+namespace CrushMe.Database.FBData
 {
     public class ApiExplorer
     {
@@ -68,7 +68,7 @@ namespace CrushMe.Api.FBData
 
             foreach (var friend in friends)
             {
-                if(user.Friends.All(user1 => user1.Name != friend.Name))
+                if(user.Friends.Any(user1 => user1.Name != friend.Name))
                 {
                     user.Friends.Add(friend);
                 }

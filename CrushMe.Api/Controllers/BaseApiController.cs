@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using CrushMe.Api.FBData;
+using CrushMe.Database.FBData;
 using CrushMe.Database;
 using CrushMe.Database.Models;
 using Facebook;

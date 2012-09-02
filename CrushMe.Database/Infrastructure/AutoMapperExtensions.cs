@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CrushMe.Api.Infrastructure
+namespace CrushMe.Database.Infrastructure
 {
     using System.Collections;
 
