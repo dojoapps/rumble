@@ -51,7 +51,7 @@ namespace CrushMe.Database.FBData
             dynamic me = client.Get("me");
 
             user.Name = (string)me.name;
-            user.FbId = (long)me.id;
+            user.Id = (long)me.id;
         }
 
         public static  void UpdateFriends(string accessToken, ref User user)

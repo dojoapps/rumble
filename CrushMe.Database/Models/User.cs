@@ -12,7 +12,7 @@ namespace CrushMe.Database.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long FbId { get; set; }
+        public long Id { get; set; }
 
         public string Name { get; set; }
 

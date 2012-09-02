@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CrushMe.Api.Services;
 using CrushMe.Database;
+using CrushMe.Database.Models;
 using Xunit;
 
 namespace CrushMe.Tests.CrushServicesTests
@@ -17,8 +18,8 @@ namespace CrushMe.Tests.CrushServicesTests
         public CrushingTests()
         {
             db = new CrushMeContext();
-            TargetId = db.Users.First().FbId;
-            CurrentUserId = db.Users.OrderBy(x => x.FbId).Skip(1).First().FbId;
+            TargetId = db.Users.First().Id;
+            CurrentUserId = db.Users.OrderBy(x => x.Id).Skip(1).First().Id;
         }
 
         [Fact]
@@ -26,11 +27,13 @@ namespace CrushMe.Tests.CrushServicesTests
         {
             var ret = CrushServices.Crush(db, CurrentUserId, TargetId, null);
             Assert.NotNull(ret.Target);
+            Assert.Equal(TargetId, ret.Target.Id);
             Assert.NotNull(ret.Crusher);
+            Assert.Equal(CurrentUserId, ret.Crusher.Id);
             Assert.Equal(CrushServices.CrushCandidatesLength, ret.Candidates.Count());
             Assert.Contains(ret.Crusher, ret.Candidates.Select(x => x.User));
             Assert.DoesNotContain(ret.Target, ret.Candidates.Select(x => x.User));
-            //TODO MORE ASSERTS
+            Assert.Equal(EnumStatusCrush.Pending, ret.Status);
         }
     }
 }

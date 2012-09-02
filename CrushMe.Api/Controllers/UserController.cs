@@ -14,14 +14,14 @@ namespace CrushMe.Api.Controllers
         public User Put(long fbId)
         {
             User newUser;
-            if(!db.Users.Any(user => user.FbId == fbId))
+            if(!db.Users.Any(user => user.Id == fbId))
             {
                 newUser = ApiExplorer.UserFactory(FbAccessToken, true);
                 db.Users.Add(CurrentUser);
             }
             else
             {
-                newUser = db.Users.FirstOrDefault(user1 => user1.FbId == fbId);
+                newUser = db.Users.FirstOrDefault(user1 => user1.Id == fbId);
                 ApiExplorer.UserUpdate(FbAccessToken, ref newUser);
 
                 if (!newUser.IsActive) newUser.IsActive = true;

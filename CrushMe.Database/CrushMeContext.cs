@@ -64,10 +64,10 @@ namespace CrushMe.Database
 
         private void AddOrUpdateUser(CrushMeContext db, long fbId, string name)
         {
-            if (db.Users.FirstOrDefault(x => x.Name == name && x.FbId == fbId) == null)
+            if (db.Users.FirstOrDefault(x => x.Name == name && x.Id == fbId) == null)
                 db.Users.Add(new User()
                 {
-                    FbId = fbId,
+                    Id = fbId,
                     Name = name
                 });
         }

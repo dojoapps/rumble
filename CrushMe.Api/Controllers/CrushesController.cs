@@ -16,9 +16,9 @@ namespace CrushMe.Api.Controllers
         [GET("/api/crushes/received")]
         public IEnumerable<CrushReceivedApiModel> GetCrushesReceived()
         {
-            var currentUserId = this.CurrentUser.FbId;
+            var currentUserId = this.CurrentUser.Id;
             var model = db.Crushes
-                .Where(x => x.Target.FbId == currentUserId)
+                .Where(x => x.Target.Id == currentUserId)
                 .MapTo<CrushReceivedApiModel>();
             return model;
         }
@@ -26,9 +26,9 @@ namespace CrushMe.Api.Controllers
         [GET("/api/crushes/sent")]
         public IEnumerable<CrushSentApiModel> GetCrushesSent()
         {
-            var currentUserId = this.CurrentUser.FbId;
+            var currentUserId = this.CurrentUser.Id;
             var model = db.Crushes
-                .Where(x => x.Crusher.FbId == currentUserId)
+                .Where(x => x.Crusher.Id == currentUserId)
                 .MapTo<CrushSentApiModel>();
             return model;
         }
@@ -36,7 +36,9 @@ namespace CrushMe.Api.Controllers
         [POST("/api/crushes/sent/{fbid}")]
         public CrushSentApiModel Crush(long fbid, int? crushFather = null)
         {
-            return CrushServices.Crush(db, CurrentUser.FbId, fbid, crushFather)
+            var ret = CrushServices.Crush(db, CurrentUser.Id, fbid, crushFather);
+
+            return ret
                 .MapTo<CrushSentApiModel>();
         }
     }
