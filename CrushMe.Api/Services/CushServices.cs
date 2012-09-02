@@ -42,7 +42,7 @@ namespace CrushMe.Api.Services
         private static List<CrushCandidate> CandidatesFor(CrushMeContext db, long crusherId, long targetId)
         {
             var candidates = (from u in db.Users
-                              where u.FbId != targetId && u.FbId != crusherId
+                              where u.Id != targetId && u.Id != crusherId
                               orderby Guid.NewGuid()
                               select u)
                               .Take(CrushCandidatesLength - 1).ToList()

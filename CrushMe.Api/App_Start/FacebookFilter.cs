@@ -44,7 +44,7 @@ namespace CrushMe.Api.App_Start
                     dynamic me = client.Get("me");
 
                     int id = me.id;
-                    if(db.Users.Any(user => user.FbId == id))
+                    if(db.Users.Any(user => user.Id == id))
                     {
                         authorized = true;
                     }
