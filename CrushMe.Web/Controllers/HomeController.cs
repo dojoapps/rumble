@@ -66,7 +66,7 @@ namespace CrushMe.Web.Controllers
 
                     FormsAuthentication.SetAuthCookie(id.ToString(), false);
 
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("Index", "CrushList");
                 }
                 catch (FacebookOAuthException ex)
                 {
