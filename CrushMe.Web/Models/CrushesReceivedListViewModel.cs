@@ -16,7 +16,7 @@ namespace CrushMe.Web.Models
     {
         public int Id { get; set; }
 
-        public string PrettyDateSent { get; set; }
+        public string DateSent { get; set; }
 
         public List<CrushCandidateViewModel> Candidates { get; set; }
     }

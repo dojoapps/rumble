@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CrushMe.Database.Infrastructure;
 using CrushMe.Web.Models;
+using CrushMe.Database.Models;
 
 namespace CrushMe.Web.Controllers
 {
@@ -28,6 +29,21 @@ namespace CrushMe.Web.Controllers
                 .MapTo<CrushReceivedViewModel>();
            
             return Json(new CrushesReceivedListViewModel() {
+                Page = page,
+                Crushes = crushesList
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [GET("/crushes/sent")]
+        public ActionResult CrushesSent(int page = 0)
+        {
+            var crushesList = db.Crushes.Where(x => x.CrusherId == UserId)
+                .OrderByDescending(x => x.DateCreated)
+                .Skip(page).Take(10)
+                .MapTo<CrushSentViewModel>();
+
+            return Json(new CrushesSentListViewModel()
+            {
                 Page = page,
                 Crushes = crushesList
             }, JsonRequestBehavior.AllowGet);
