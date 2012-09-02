@@ -1,0 +1,96 @@
+﻿@model CrushMe.Web.Models.DashboardModel
+
+@{
+    ViewBag.Title = "CrushMe - Últimas Novidades";
+}
+
+<div class="metro-pivot">
+    <div class="pivot-item">
+        <h3>Crushes Enviados</h3>
+        
+        <div class="crush-sent crush-status-pending">
+           <img src="http://graph.facebook.com/ana.schiffer/picture?type=large" alt="Fulana de Tal" class="crush-picture" />
+           <span class="crush-name">Fulana de Tal</span>
+           <small>enviado a 45 minutos</small>
+        </div>
+                <div class="crush-sent crush-status-pending">
+           <img src="http://graph.facebook.com/ana.schiffer/picture?type=large" alt="Fulana de Tal" class="crush-picture" />
+           <span class="crush-name">Fulana de Tal</span>
+           <small>enviado a 45 minutos</small>
+        </div>
+                <div class="crush-sent crush-status-pending">
+           <img src="http://graph.facebook.com/ana.schiffer/picture?type=large" alt="Fulana de Tal" class="crush-picture" />
+           <span class="crush-name">Fulana de Tal</span>
+           <small>enviado a 45 minutos</small>
+        </div>
+                <div class="crush-sent crush-status-pending">
+           <img src="http://graph.facebook.com/ana.schiffer/picture?type=large" alt="Fulana de Tal" class="crush-picture" />
+           <span class="crush-name">Fulana de Tal</span>
+           <small>enviado a 45 minutos</small>
+        </div>
+    </div>
+    <div class="pivot-item">
+        <h3>Crushes Para Você!</h3>
+        
+        <div class="crush-received crush-status-pending">
+            <small>recebido 2 dias atrás</small>
+            <div class="candidates">
+                @for(var i=0;i<10;i++){  
+                    if ( i % 2 == 0 ) {
+                        <img src="http://graph.facebook.com/ana.schiffer/picture?type=normal" alt="Felipe Amorim" />
+                    } else {
+                        <img src="http://graph.facebook.com/felipeleusin/picture?type=normal" alt="Felipe Amorim" />
+                    }
+                }
+            </div>
+        </div>
+                <div class="crush-received crush-status-pending">
+            <small>recebido 2 dias atrás</small>
+            <div class="candidates">
+                @for(var i=0;i<10;i++){  
+                    if ( i % 2 == 0 ) {
+                        <img src="http://graph.facebook.com/ana.schiffer/picture?type=normal" alt="Felipe Amorim" />
+                    } else {
+                        <img src="http://graph.facebook.com/felipeleusin/picture?type=normal" alt="Felipe Amorim" />
+                    }
+                }
+            </div>
+        </div>
+                <div class="crush-received crush-status-pending">
+            <small>recebido 2 dias atrás</small>
+            <div class="candidates">
+                @for(var i=0;i<10;i++){  
+                    if ( i % 2 == 0 ) {
+                        <img src="http://graph.facebook.com/ana.schiffer/picture?type=normal" alt="Felipe Amorim" />
+                    } else {
+                        <img src="http://graph.facebook.com/felipeleusin/picture?type=normal" alt="Felipe Amorim" />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            var callout = $('<span class="callout" styel="display: none">clique para responder!</span>');
+             $(".crush-received").on("mouseenter", function () {
+                 var self = $(this),
+                     candidates = self.children(".candidates"),
+                     w = parseInt(self.width());
+                 if ( w < 1037 ) {
+                     candidates.animate({ "marginLeft": w-1037 }, 3000);
+                 }
+                callout.stop().prependTo(self).fadeIn("fast");
+            }).on("mouseleave", function () {
+                $(this).children(".candidates").stop().animate({ "marginLeft": 0 }, 1000);
+                callout.fadeOut("slow", function () { callout.remove(); });
+            });
+
+            $(".metro-pivot").metroPivot();
+
+            
+        });
+    </script>
+}

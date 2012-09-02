@@ -12,17 +12,21 @@
     </head>
 
     <body id="@ViewBag.BodyId" class="@ViewBag.BodyClass">
-        <header id="page-header">
-            @{ Html.RenderPartial("_PageHeader"); }
-        </header>
-        <section id="main">
-            <div class="container">
-                @RenderBody()                
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span3">
+                    <aside class="main-menu affix" >
+                        <h1>CrushMe!</h1>
+
+                        <button>Como funciona</button>
+                        <button>CrushMe Party!</button>
+                    </aside>
+                </div>
+                <section id="main" class="span9">
+                    @RenderBody()                
+                </section>
             </div>
-        </section>
-        <footer id="page-footer">
-            @{ Html.RenderPartial("_PageFooter"); }
-        </footer>
+        </div>
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)

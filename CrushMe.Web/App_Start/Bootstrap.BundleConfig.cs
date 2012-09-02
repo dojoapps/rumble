@@ -7,8 +7,8 @@ namespace CrushMe.Web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-1.*").Include("~/Scripts/bootstrap*"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                .Include("~/Scripts/jquery-1.*").Include("~/Scripts/bootstrap*").IncludeDirectory("~/Scripts/plugins","*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));

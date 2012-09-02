@@ -22,6 +22,7 @@ namespace CrushMe.Database
     public class DbInitializer<T> : DropCreateDatabaseAlways<T>
         where T : CrushMeContext
     {
+
         protected override void Seed(T db)
         {
             AddOrUpdateUser(db, 100000193426007, "Felipe Amorim");

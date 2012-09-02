@@ -1,7 +1,137 @@
-﻿@import "Site.css";
-@import "less/bootstrap.less";
+﻿@import "less/bootstrap.less";
 
 .site-title a {
     .border-radius(5px);
     border: 1px solid @grayLighter;
+}
+
+body {
+	padding-top: 40px;
+}
+
+h1 {
+	font-size: 4em;
+	color: @white;
+	 text-shadow:
+       3px 3px 0 @purple,
+     -1px -1px 0 @purple,  
+      1px -1px 0 @purple,
+      -1px 1px 0 @purple,
+       1px 1px 0 @purple;
+}
+
+.main-menu {
+    min-width: 270px;
+    top: 40px;
+    left: 40px;
+
+    & > button {
+        border: 0 none;
+        width: 80%;
+		height: 70px;
+        padding: 10% 0;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 18px;
+        color: @white;
+        background-color: @purple;
+    }
+
+    & > button:hover {
+		background-color: lighten(@purple, 15%);
+		font-weight: bold;
+    }
+}
+.menu-logo {
+	width: 90%;
+}
+
+.metro-pivot {
+    .headers {
+        white-space: nowrap;
+        height: 60px;
+        display: block;
+        clear: both;
+    }
+
+    .pivot-item h3, 
+	.headers .header {
+        font-size: 2.5em;
+        font-weight: normal;
+        display: inline-block;
+        vertical-align: top;
+        padding: 0;
+        cursor: pointer;
+        margin: 0 5px;
+    }
+
+    .headers .header.current {
+    }
+
+    .items {
+        position: relative;
+    }
+
+    .items .pivotItem {
+        display: block;
+        white-space: normal;
+        text-align: justify;
+        width: 100%;
+    }
+
+    .items .pivotItem .pivot-item {
+        padding: 10px;
+    }
+}
+
+.crush-received,
+.crush-sent {
+	padding: 5px;
+	width: 90%;
+	max-width: 1037px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	position: relative;
+}
+
+.crush-received {
+    overflow: hidden;
+    text-align: right;
+
+    .callout {
+		color: @white;
+		position: absolute;
+		left: 5px;
+    }
+
+    .candidates {
+        width: 2000px;
+        height: 75px;
+		text-align: left;
+    }
+}
+
+.crush-sent {
+    .crush-picture {
+        height: 85px;
+        vertical-align: top;
+    }
+
+    .crush-name {
+        font-size: 22px;
+    }
+
+    small {
+		position: absolute;
+		bottom: 3px;
+		right: 3px;
+    }
+}
+
+.crush-status-pending {
+	background-color: @grayLighter;
+}
+
+.crush-status-pending:hover {
+	background-color: lighten(@purple, 15%);
 }
