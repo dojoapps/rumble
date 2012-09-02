@@ -27,6 +27,7 @@ h1 {
 
     & > button {
         border: 0 none;
+		line-height: 0;
         width: 80%;
 		height: 70px;
         padding: 10% 0;
@@ -42,8 +43,12 @@ h1 {
 		font-weight: bold;
     }
 }
-.menu-logo {
-	width: 90%;
+
+.ajax-loader {
+	background-image: url(images/ajax-loader.gif);
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 200px;
 }
 
 .metro-pivot {
@@ -99,15 +104,23 @@ h1 {
     text-align: right;
 
     .callout {
-		color: @white;
-		position: absolute;
-		left: 5px;
+        color: @white;
+        position: absolute;
+        left: 5px;
     }
 
     .candidates {
         width: 2000px;
         height: 75px;
-		text-align: left;
+        text-align: left;
+    }
+
+    .selected-true {
+        border: 1px solid @green;
+    }
+
+    .selected-false {
+		margin: 1px;
     }
 }
 

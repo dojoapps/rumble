@@ -18,6 +18,10 @@
                     <aside class="main-menu affix" >
                         <h1>CrushMe!</h1>
 
+                        @if (Request.IsAuthenticated)
+                        {
+                            <button>Envie um crush!</button>
+                        }
                         <button>Como funciona</button>
                         <button>CrushMe Party!</button>
                     </aside>

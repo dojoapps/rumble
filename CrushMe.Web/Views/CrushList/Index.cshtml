@@ -1,0 +1,111 @@
+﻿@model CrushMe.Web.Models.DashboardModel
+
+@{
+    ViewBag.Title = "CrushMe - Últimas Novidades";
+}
+
+<div class="metro-pivot">
+    <div class="pivot-item">
+        <h3>Crushes Enviados</h3>
+        <div id="crushes-sent">
+            <div class="crushes-empty">
+                Sai do marasmo! Envie um crush!
+
+            </div>
+        </div>
+    </div>
+    <div class="pivot-item">
+        <h3>Crushes Para Você!</h3>
+        <div id="crushes-received">
+            <div class="crushes-empty">
+                Ninguém te ama! Rá!!
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="crush-received-template" type="text/x-handlebars-template">
+    <div data-crush-id="{{Id}}" class="crush-received crush-status-{{Status}}">
+        <small>recebido a {{DateSent}}</small>
+        <div class="candidates">
+        {{#each Candidates}}
+            <img class="selected-{{Selected}}" src="http://graph.facebook.com/{{FbId}}/picture?type=normal" alt="{{Name}}" />
+        {{/each}}
+        </div>
+    </div>
+</script>
+<script id="crush-sent-template" type="text/x-handlebars-template">
+    <div data-crush-id="{{Id}}" class="crush-sent crush-status-{{Status}}">
+        <img src="http://graph.facebook.com/{{TargetId}}/picture?type=large" alt="{{TargetName}}" class="crush-picture" />
+        <span class="crush-name">{{TargetName}}</span>
+        <small>enviado a {{DateSent}}</small>
+    </div>
+</script>
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/plugins/handlebars.js")"></script>
+    <script>
+        $(function () {
+            var callout = $('<span class="callout" styel="display: none">clique para responder!</span>'),
+                receivedHolder = $("#crushes-received"),
+                receivedTemplate = Handlebars.compile(document.getElementById("crush-received-template").innerHTML),
+                sentHolder = $("#crushes-sent"),
+                sentTemplate = Handlebars.compile(document.getElementById("crush-sent-template").innerHTML);
+
+             $(".crush-received").on("mouseenter", function () {
+                 var self = $(this),
+                     candidates = self.children(".candidates"),
+                     w = parseInt(self.width());
+                 if ( w < 1037 ) {
+                     candidates.animate({ "marginLeft": w-1037 }, 3000);
+                 }
+                callout.stop().prependTo(self).fadeIn("fast");
+            }).on("mouseleave", function () {
+                $(this).children(".candidates").stop().animate({ "marginLeft": 0 }, 1000);
+                callout.fadeOut("slow", function () { callout.remove(); });
+            });
+
+             $(".metro-pivot").metroPivot();
+
+             var fetchCrushes = function (url, templateFunc, holder, page) {
+                 var loader = $('<div class="ajax-loader"></div>').appendTo(holder);
+
+                 $.ajax({
+                     url: url,
+                     type: "GET",
+                     dataType: "json"
+                 }).done(function (data) {
+                     var markUp = '',
+                         count = data.Crushes.length;
+                     if (count === 0) {
+                         holder.children(".crushes-empty").show();
+                     } else {
+                         holder.children(".crushes-empty").hide();
+                     }
+                     for (var i = 0; i < count; i++) {
+                         markUp += templateFunc(data.Crushes[i]);
+                     }
+
+                     holder.append(markUp);
+                 }).always(function () {
+                     loader.fadeOut("slow", function () { loader.remove(); });
+                 });
+             };
+
+             fetchCrushes("/crushes/received", receivedTemplate, receivedHolder);
+             fetchCrushes("/crushes/sent", sentTemplate, sentHolder);
+
+             receivedHolder.on("click", ".crush-received", function () {
+                 var self = $(this);
+
+                 $.ajax({
+                     url: "/crush/" + self.data("crushId"),
+                     type: "GET",
+                     dataType: "HTML"
+                 }).done(function (modal) {
+                     $(modal).appendTo(document.body).modal();
+                 });
+             });
+        });
+    </script>
+}

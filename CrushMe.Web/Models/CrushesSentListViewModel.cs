@@ -19,7 +19,7 @@ namespace CrushMe.Web.Models
 
         public long TargetId { get; set; }
 
-        public string Name { get; set; }
+        public string TargetName { get; set; }
 
         public EnumStatusCrush Status { get; set; }
 

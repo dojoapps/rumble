@@ -138,8 +138,9 @@
     <Compile Include="App_Start\AutoMapperConfiguration.cs" />
     <Compile Include="App_Start\Bootstrap.BundleConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CrushController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\CrushListController.cs" />
     <Compile Include="Core\DisposableObject.cs" />
     <Compile Include="Core\Extensions\ObjectExtensions.cs" />
     <Compile Include="Core\Extensions\StringExtensions.cs" />
@@ -167,6 +168,7 @@
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\plugins\handlebars.js" />
     <Content Include="Scripts\plugins\jquery-metro.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
@@ -183,10 +185,12 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Welcome.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\CrushList\Index.cshtml" />
+    <Content Include="Views\Crush\_CrushReceivedModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\lib\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

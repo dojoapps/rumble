@@ -10,7 +10,7 @@ using CrushMe.Database.Models;
 
 namespace CrushMe.Web.Controllers
 {
-    public class UserController : BaseController
+    public class CrushListController : BaseController
     {
         //
         // GET: /User/

@@ -18,6 +18,8 @@ namespace CrushMe.Web.Models
 
         public string DateSent { get; set; }
 
+        public string Status { get; set; }
+
         public List<CrushCandidateViewModel> Candidates { get; set; }
     }
 
