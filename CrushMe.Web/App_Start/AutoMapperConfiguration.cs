@@ -12,6 +12,7 @@ namespace CrushMe.Web
         public static void RegisterMappings()
         {
             Mapper.AddProfile<CrushesListMapperProfile>();
+            Mapper.AddProfile<CandidateMapperProfile>();
         }
     }
 }

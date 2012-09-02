@@ -54,7 +54,7 @@ namespace CrushMe.Database.FBData
             user.Id = (long)me.id;
         }
 
-        public static  void UpdateFriends(string accessToken, ref User user)
+        /*public static  void UpdateFriends(string accessToken, ref User user)
         {
             var client = new FacebookClient
             {
@@ -74,6 +74,6 @@ namespace CrushMe.Database.FBData
                 }
             }
 
-        }
+        }*/
     }
 }

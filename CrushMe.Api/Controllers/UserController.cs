@@ -33,12 +33,12 @@ namespace CrushMe.Api.Controllers
             return CurrentUser;
         }
 
-        public List<User> Friends()
+        /*public List<User> Friends()
         {
             var user = CurrentUser;
-            ApiExplorer.UpdateFriends(FbAccessToken, ref user);
+            //ApiExplorer.UpdateFriends(FbAccessToken, ref user);
 
             return user.Friends;
-        }
+        }*/
     }
 }

@@ -20,6 +20,7 @@ namespace CrushMe.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Crush> Crushes { get; set; }
         public DbSet<CrushCandidate> CrushCandidates { get; set; }
+        public DbSet<UserFriend> Friends { get; set; }
 
         private static string GetConnectionString() {
             try

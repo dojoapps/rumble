@@ -19,13 +19,13 @@ namespace CrushMe.Database.Models
         public bool IsActive { get; set; }
 
         [InverseProperty("Crusher")]
-        public List<Crush> Crushes { get; set; }
+        public virtual List<Crush> Crushes { get; set; }
 
         [InverseProperty("Target")]
-        public List<Crush> Targeted { get; set; }
+        public virtual List<Crush> Targeted { get; set; }
 
-        public List<CrushCandidate> CrushCandidates { get; set; }
+        public virtual List<CrushCandidate> CrushCandidates { get; set; }
 
-        public List<User> Friends { get; set; } 
+        public virtual List<UserFriend> Friends { get; set; } 
     }
 }

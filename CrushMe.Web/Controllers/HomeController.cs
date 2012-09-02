@@ -46,7 +46,8 @@ namespace CrushMe.Web.Controllers
                         {
                             Id = id,
                             IsActive = true,
-                            Name = (string)me.name
+                            Name = (string)me.name,
+                            Friends = new List<UserFriend>()
                         };
 
                         db.Users.Add(user);
@@ -57,10 +58,25 @@ namespace CrushMe.Web.Controllers
                     }
 
                     // Atualiza os amigos do usuários
-                    /*dynamic friendsDynamic = client.Get("me/friends");
+                    dynamic friendsDynamic = client.Get("me/friends");
                     List<dynamic> friends = JsonConvert.DeserializeObject<List<dynamic>>(friendsDynamic.data.ToString());
 
-                    user.Friends = friends.Select(x => new User() { Name = x.name, FbId = x.id }).ToList();*/
+                    var friendList = friends.Select(x => new User() { Name = x.name, Id = x.id, IsActive = false }).ToList();
+
+                    friendList.ForEach(x =>
+                    {
+                        var friendUser = db.Users.Find(x.Id);
+                        if ( friendUser == null)
+                        {
+                            friendUser = db.Users.Add(x);
+                        }
+
+                        user.Friends.Add(new UserFriend()
+                        {
+                            FbId = x.Id,
+                            Name = x.Name
+                        });
+                    });
 
                     db.SaveChanges();
 

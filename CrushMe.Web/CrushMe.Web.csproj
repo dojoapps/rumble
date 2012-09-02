@@ -138,6 +138,7 @@
     <Compile Include="App_Start\AutoMapperConfiguration.cs" />
     <Compile Include="App_Start\Bootstrap.BundleConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CandidateController.cs" />
     <Compile Include="Controllers\CrushController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CrushListController.cs" />
@@ -152,9 +153,13 @@
     <Compile Include="Helpers\EnablePostRequestGetAttribute.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
+    <Compile Include="Infrastructure\AutoMapperProfiles\CandidateMapperProfile.cs" />
     <Compile Include="Infrastructure\AutoMapperProfiles\CrushesListMapperProfile.cs" />
+    <Compile Include="Infrastructure\AutoMapperProfiles\CrushViewModel.cs" />
     <Compile Include="Infrastructure\ImportedFilePathResolver.cs" />
     <Compile Include="Infrastructure\LessMinify.cs" />
+    <Compile Include="Models\CandidateListViewModel.cs" />
+    <Compile Include="Models\CandidateViewModel.cs" />
     <Compile Include="Models\CrushesReceivedListViewModel.cs" />
     <Compile Include="Models\CrushesSentListViewModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />

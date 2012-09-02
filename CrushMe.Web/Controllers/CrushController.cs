@@ -23,6 +23,11 @@ namespace CrushMe.Web.Controllers
             return Json(new { success = true });
         }
 
+        [GET("/crush/new")]
+        public ActionResult CreateCrush() {
+            return View();
+        }
+
         [POST("/crush/{id}")]
         public ActionResult ChoseCandidate(int id, long candidateFbId) {
             var crush = db.Crushes.FirstOrDefault(x => x.Id == id);

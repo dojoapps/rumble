@@ -20,7 +20,7 @@
 
                         @if (Request.IsAuthenticated)
                         {
-                            <button>Envie um crush!</button>
+                            <button class="crush-new-modal">Envie um crush!</button>
                         }
                         <button>Como funciona</button>
                         <button>CrushMe Party!</button>
@@ -34,5 +34,84 @@
 
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
+
+        @if (Request.IsAuthenticated)
+        {
+            <div id="crush-new" class="modal fade" tabindex="-1" role="dialog" >
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Envie um crush!</h3>
+              </div>
+              <div class="modal-body">
+                <input type="text" class="candidate-autocomplete" style="width: 90%;" />
+                <small><em>escolha um de seus amigos e ou procure entre todos os usuários do CrushMe!</em></small>
+                <ul class="candidate-list"></ul>
+              </div>
+              <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+                <button class="btn btn-primary">Enviar crush!</button>
+              </div>
+            </div>
+            
+            <script id="candidate-item-template" type="text/x-handlebars-template">
+                <li data-target-id="{{FbId}}">
+                    <img src="http://graph.facebook.com/{{FbId}}/picture?type=large" alt="{{Name}}" class="crush-picture" />
+                    <div class="crush-name">{{Name}}</div>
+                </li>
+           </script>
+            <script>
+                $(function () {
+                    var newCrushDialog = $("#crush-new"),
+                        autocomplete = newCrushDialog.find(".candidate-autocomplete"),
+                        loader = $('<div class="ajax-loader"></div>').appendTo(newCrushDialog.find(".modal-body")).hide(),
+                        candidateTemplate = Handlebars.compile(document.getElementById("candidate-item-template").innerHTML),
+                        selectedCandidateId = null;
+
+                    newCrushDialog.modal({ show: false });
+
+                    newCrushDialog.on("click", ".btn-primary", function () {
+                        if (selectedCandidate) {
+                            $.ajax({
+                                url: "/crush/new",
+                                type: "POST",
+                                data: {
+                                    targetId: selectedCandidateId
+                                }
+                            });
+                        } else {
+                            $(this).popover({
+                                placement: "top",
+                                title: "Ops!",
+                                content: "Escolha alguém da lista acima!"
+                            });
+                        }
+                    });
+                    console.log("BABOU?");
+                    $(document).on("click", ".crush-new-modal", function () {
+                        console.log("NÁo!");
+                        newCrushDialog.find(".candidate-list").empty();
+                        newCrushDialog.find(".candidate-autocomplete").val("");
+                        newCrushDialog.modal("show");
+
+                        loader.show();
+                        $.ajax({
+                            url: "/candidates",
+                            dataType: "json"
+                        }).done(function (data) {
+                            var markUp = '',
+                                count = data.Candidates.length;
+                            for (var i = 0; i < count; i++) {
+                                markUp += candidateTemplate(data.Candidates[i]);
+                            }
+
+                            newCrushDialog.find(".candidate-list").append(markUp);
+                           
+                        }).always(function () {
+                            loader.fadeOut();
+                        });
+                    });
+                });
+            </script>
+        }
     </body>
 </html>
