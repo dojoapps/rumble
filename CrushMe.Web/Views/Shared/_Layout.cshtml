@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row-fluid">
                 <div class="span3">
-                    <aside class="main-menu affix" >
+                    <aside class="main-menu" >
                         <h1>CrushMe!</h1>
 
                         @if (Request.IsAuthenticated)
@@ -43,40 +43,47 @@
                 <h3>Envie um crush!</h3>
               </div>
               <div class="modal-body">
-                <input type="text" class="candidate-autocomplete" style="width: 90%;" />
-                <small><em>escolha um de seus amigos e ou procure entre todos os usuários do CrushMe!</em></small>
-                <ul class="candidate-list"></ul>
+                <input type="text" class="candidate-autocomplete" style="width: 90%;" placeholder="escolha um de seus amigos e ou procure entre todos os usuários do CrushMe!" />
+
+                <div class="candidate-list"></div>
               </div>
               <div class="modal-footer">
+                <span class="candidate-chosen"></span>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
                 <button class="btn btn-primary">Enviar crush!</button>
               </div>
             </div>
             
             <script id="candidate-item-template" type="text/x-handlebars-template">
-                <li data-target-id="{{FbId}}">
-                    <img src="http://graph.facebook.com/{{FbId}}/picture?type=large" alt="{{Name}}" class="crush-picture" />
-                    <div class="crush-name">{{Name}}</div>
-                </li>
+                <div class="candidate" data-target-id="{{FbId}}">
+                    <img src="http://graph.facebook.com/{{FbId}}/picture?type=normal" alt="{{Name}}" class="candidate-picture"/>
+                    <span class="candidate-name">{{Name}}</span>
+                </div>
            </script>
             <script>
                 $(function () {
                     var newCrushDialog = $("#crush-new"),
                         autocomplete = newCrushDialog.find(".candidate-autocomplete"),
-                        loader = $('<div class="ajax-loader"></div>').appendTo(newCrushDialog.find(".modal-body")).hide(),
+                        candidateList = newCrushDialog.find(".candidate-list"),
+                        loader = $('<div class="ajax-loader"></div>').insertBefore(candidateList).hide(),
                         candidateTemplate = Handlebars.compile(document.getElementById("candidate-item-template").innerHTML),
-                        selectedCandidateId = null;
+                        selectedCandidateId = null,
+                        page = 0,
+                        lastRequest = null;
 
                     newCrushDialog.modal({ show: false });
+                    autocomplete.data("lastval", "");
 
                     newCrushDialog.on("click", ".btn-primary", function () {
-                        if (selectedCandidate) {
+                        if (selectedCandidateId) {
                             $.ajax({
                                 url: "/crush/new",
                                 type: "POST",
                                 data: {
                                     targetId: selectedCandidateId
                                 }
+                            }).done(function (data) {
+                                newCrushDialog.modal("hide");
                             });
                         } else {
                             $(this).popover({
@@ -86,29 +93,56 @@
                             });
                         }
                     });
-                    console.log("BABOU?");
-                    $(document).on("click", ".crush-new-modal", function () {
-                        console.log("NÁo!");
-                        newCrushDialog.find(".candidate-list").empty();
-                        newCrushDialog.find(".candidate-autocomplete").val("");
+
+                    var fetchCandidate = function (query) {
+                        candidateList.empty();                        
                         newCrushDialog.modal("show");
 
                         loader.show();
-                        $.ajax({
+                        if (lastRequest) {
+                            lastRequest.abort();
+                        }
+                        lastRequest = $.ajax({
                             url: "/candidates",
-                            dataType: "json"
+                            dataType: "json",
+                            data: { query: query }
                         }).done(function (data) {
                             var markUp = '',
+                                markUpPag = '',
                                 count = data.Candidates.length;
                             for (var i = 0; i < count; i++) {
                                 markUp += candidateTemplate(data.Candidates[i]);
                             }
 
-                            newCrushDialog.find(".candidate-list").append(markUp);
-                           
-                        }).always(function () {
+                            candidateList.append(markUp).show();
+
                             loader.fadeOut();
+                        }).always(function () {
+
                         });
+                    };
+
+                    autocomplete.on("keyup", function () {
+                        var v = $.trim(autocomplete.val());
+
+                        if (v != autocomplete.data("lastval") && v.length > 2) {
+                            fetchCandidate(v);
+                            autocomplete.data("lastval", v);
+                        }
+                    });
+
+
+                    candidateList.on("click", ".candidate", function () {
+                        var self = $(this);
+                        
+                        newCrushDialog.find(".candidate-chosen").text("Você escolheu " + self.find(".candidate-name").text() + "!");
+                        selectedCandidateId = self.data("targetId");
+                    });
+
+                    $(document).on("click", ".crush-new-modal", function () {
+                        autocomplete.val("");
+                        fetchCandidate();
+                        
                     });
                 });
             </script>

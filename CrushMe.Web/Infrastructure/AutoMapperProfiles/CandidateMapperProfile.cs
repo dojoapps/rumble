@@ -15,6 +15,10 @@ namespace CrushMe.Web.Infrastructure.AutoMapperProfiles
             Mapper.CreateMap<UserFriend, CandidateViewModel>()
                 .ForMember(x => x.FbId, o => o.MapFrom(m => m.FbId))
                 .ForMember(x => x.Name, o => o.MapFrom(m => m.Name));
+
+            Mapper.CreateMap<User, CandidateViewModel>()
+                .ForMember(x => x.FbId, o => o.MapFrom(m => m.Id))
+                .ForMember(x => x.Name, o => o.MapFrom(m => m.Name));
         }
     }
 }

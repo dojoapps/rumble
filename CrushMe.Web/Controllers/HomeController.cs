@@ -63,19 +63,22 @@ namespace CrushMe.Web.Controllers
 
                     var friendList = friends.Select(x => new User() { Name = x.name, Id = x.id, IsActive = false }).ToList();
 
-                    friendList.ForEach(x =>
+                    friendList.ForEach(u =>
                     {
-                        var friendUser = db.Users.Find(x.Id);
+                        var friendUser = db.Users.Find(u.Id);
                         if ( friendUser == null)
                         {
-                            friendUser = db.Users.Add(x);
+                            friendUser = db.Users.Add(u);
                         }
 
-                        user.Friends.Add(new UserFriend()
+                        if (!user.Friends.Any(f => f.FbId == u.Id))
                         {
-                            FbId = x.Id,
-                            Name = x.Name
-                        });
+                            user.Friends.Add(new UserFriend()
+                            {
+                                FbId = u.Id,
+                                Name = u.Name
+                            });
+                        }                        
                     });
 
                     db.SaveChanges();

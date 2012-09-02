@@ -21,7 +21,7 @@ h1 {
 }
 
 .main-menu {
-    min-width: 270px;
+    width: 100%;
     top: 40px;
     left: 40px;
 
@@ -147,4 +147,32 @@ h1 {
 
 .crush-status-pending:hover {
 	background-color: lighten(@purple, 15%);
+}
+
+#crush-new {
+    .candidate-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .candidate {
+        margin-bottom: 12px;
+        cursor: pointer;
+
+        &:hover {
+			 background-color: lighten(@purple, 30%);
+        }
+    }
+
+    .candidate-picture {
+        vertical-align: top;
+        margin-right: 8px;
+    }
+
+    .candidate-name {
+        color: @grayDark;
+        font-size: 18px;
+		font-weight: bold;
+    }
 }

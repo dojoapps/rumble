@@ -20,7 +20,19 @@ namespace CrushMe.Web.Controllers
 
             if (string.IsNullOrEmpty(query) && CurrentUser.Friends != null)
             {
-                viewModel.Candidates = CurrentUser.Friends.MapTo<CandidateViewModel>();
+                viewModel.Candidates = CurrentUser.Friends.OrderBy(x => x.Name).MapTo<CandidateViewModel>();
+                viewModel.PageCount = Math.Ceiling(CurrentUser.Friends.Count / 50d);
+            }
+            else
+            {
+                
+                viewModel.Candidates = CurrentUser.Friends.Where(x => x.Name.Contains(query)).MapTo<CandidateViewModel>();
+                var userCandidates = db.Users.Where(x => x.Name.Contains(query)).OrderBy(x => x.Name).MapTo<CandidateViewModel>();
+
+                viewModel.Candidates.AddRange(userCandidates);
+
+                viewModel.Candidates = viewModel.Candidates.GroupBy(x => x.FbId).Select(x => x.First()).OrderBy(x => x.Name).ToList();
+
             }
 
             return Json(viewModel, JsonRequestBehavior.AllowGet);

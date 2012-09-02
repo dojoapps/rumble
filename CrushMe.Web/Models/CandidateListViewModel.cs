@@ -9,6 +9,8 @@ namespace CrushMe.Web.Models
     {
         public int Page { get; set; }
 
+        public double PageCount { get; set; }
+
         public List<CandidateViewModel> Candidates { get; set; }
     }
 }
