@@ -115,5 +115,17 @@ namespace CrushMe.Web.Controllers
             return View();
         }
 
+        [GET("/como-funciona")]
+        public ActionResult HowItWorks()
+        {
+            return View();
+        }
+
+        [GET("/festa-de-lancamento")]
+        public ActionResult CrushMeParty()
+        {
+            return View();
+        }
+
     }
 }

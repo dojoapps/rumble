@@ -217,6 +217,8 @@
     <Content Include="Views\Home\Welcome.cshtml" />
     <Content Include="Views\CrushList\Index.cshtml" />
     <Content Include="Views\Crush\_CrushReceivedModal.cshtml" />
+    <Content Include="Views\Home\HowItWorks.cshtml" />
+    <Content Include="Views\Home\CrushMeParty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
