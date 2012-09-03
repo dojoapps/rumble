@@ -171,6 +171,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="channel.html" />
     <Content Include="Content\images\ajax-loader.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
