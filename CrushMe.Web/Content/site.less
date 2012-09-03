@@ -50,6 +50,7 @@ h1 {
 	background-position: center center;
 	background-repeat: no-repeat;
 	height: 200px;
+	position: absolute;
 }
 
 .metro-pivot {
@@ -150,11 +151,16 @@ h1 {
 	background-color: lighten(@purple, 15%);
 }
 
-#crush-new {
+.crush-modal {
     .candidate-list {
         margin: 0;
         padding: 0;
         list-style: none;
+    }
+
+	.modal-body,
+    .modal-footer {
+        position: relative;
     }
 
     .candidate {
@@ -162,7 +168,7 @@ h1 {
         cursor: pointer;
 
         &:hover {
-			 background-color: lighten(@purple, 30%);
+            background-color: lighten(@purple, 30%);
         }
     }
 
@@ -174,6 +180,12 @@ h1 {
     .candidate-name {
         color: @grayDark;
         font-size: 18px;
-		font-weight: bold;
+        font-weight: bold;
+    }
+
+	.btn-close,
+    .btn-crush-none {
+        position: absolute;
+		left: 15px;
     }
 }

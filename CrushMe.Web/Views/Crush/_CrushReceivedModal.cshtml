@@ -1,28 +1,26 @@
 ﻿@model CrushMe.Web.Models.CrushReceivedViewModel
 
-<div class="modal fade" tabindex="-1" role="dialog" >
+<div class="modal fade crush-modal" tabindex="-1" role="dialog" data-crush-id="@Model.Id" >
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3>Tem um crush para você!</h3>
   </div>
   <div class="modal-body">
-    Veja abaixo se você descobre quem foi...
+    Clique em quem você acha que mandou o crush!
 
-    <ul class="candidate-list">
+    <div class="candidate-list">
     @foreach (var canditade in Model.Candidates)
     {
-        <li data-candidate-id="@canditade.FbId">
-            <img src="http://graph.facebook.com/@canditade.FbId/picture?type=large" alt="@canditade.Name" />
+        <div class="candidate" data-target-id="@canditade.FbId">
+            <img src="http://graph.facebook.com/@canditade.FbId/picture?type=normal" alt="@canditade.Name" class="candidate-picutre"/>
             <span class="candidate-name">@canditade.Name</span>
-            <button class="candidate-pick">Foi este!</button>
-        </li>
+        </div>
     }
-    </ul>
+    </div>
   </div>
-    <!--
   <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-    <button class="btn btn-primary">Salvar</button>
+    <button class="btn btn-crush-none">Nenhum destes</button>
+    <span class="candidate-chosen"></span>
+    <button class="btn btn-primary">Foi este mesmo!</button>
   </div>
-        -->
 </div>

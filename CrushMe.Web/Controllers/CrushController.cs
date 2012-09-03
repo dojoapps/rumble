@@ -28,26 +28,47 @@ namespace CrushMe.Web.Controllers
             return View();
         }
 
-        [POST("/crush/{id}")]
-        public ActionResult ChoseCandidate(int id, long candidateFbId) {
+        [POST("/crush/chose/{id}")]
+        public ActionResult ChoseCandidate(int id, long? candidateFbId) {
             var crush = db.Crushes.FirstOrDefault(x => x.Id == id);
             if (crush == null || crush.TargetId != UserId)
             {
                 return HttpNotFound();
             }
 
-            var candidate = crush.Candidates.FirstOrDefault(x => x.UserId == candidateFbId);
-
-            if (candidate != null)
+            if (candidateFbId.HasValue)
             {
-                candidate.Selected = true;
-                db.SaveChanges();
+                var candidate = crush.Candidates.FirstOrDefault(x => x.UserId == candidateFbId);
 
-                return Json(new { success = true });
+                if (candidate != null)
+                {
+                    candidate.Selected = true;
+
+                    if (candidate.UserId == crush.CrusherId)
+                    {
+                        crush.Status = EnumStatusCrush.Match;
+                    }
+                    else
+                    {
+                        var crushService = new CrushServices(db);
+
+                        crushService.Crush(UserId, candidateFbId.Value, id);
+                    }
+                }
+                else
+                {
+                    crush.Status = EnumStatusCrush.NoMatch;
+                }
+            }
+            else
+            {
+                crush.Status = EnumStatusCrush.NoMatch;
             }
 
+            db.SaveChanges();
 
-            return Json(new { success = false });            
+
+            return Json(new { success = true });           
         }
 
         [GET("/crush/{id}")]
@@ -63,13 +84,13 @@ namespace CrushMe.Web.Controllers
             {
                 var viewModel = crush.MapTo<CrushReceivedViewModel>();
 
-                return View("_CrushReceivedModal", viewModel);
+                return PartialView("_CrushReceivedModal", viewModel);
             }
             else if ( crush.CrusherId == UserId )
             {
                 var viewModel = crush.MapTo<CrushSentViewModel>();
 
-                return View("_CrushSentModal", viewModel);
+                return PartialView("_CrushSentModal", viewModel);
             }
 
             return HttpNotFound("Malandro!");

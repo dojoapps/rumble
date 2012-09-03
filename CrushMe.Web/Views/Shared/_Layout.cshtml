@@ -37,7 +37,7 @@
 
         @if (Request.IsAuthenticated)
         {
-            <div id="crush-new" class="modal fade" tabindex="-1" role="dialog" >
+            <div id="crush-new" class="modal fade crush-modal" tabindex="-1" role="dialog" >
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3>Envie um crush!</h3>
@@ -48,8 +48,8 @@
                 <div class="candidate-list"></div>
               </div>
               <div class="modal-footer">
+                <button class="btn btn-close" data-dismiss="modal" aria-hidden="true">Fechar</button>
                 <span class="candidate-chosen"></span>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
                 <button class="btn btn-primary">Enviar crush!</button>
               </div>
             </div>
@@ -84,6 +84,7 @@
                                 }
                             }).done(function (data) {
                                 newCrushDialog.modal("hide");
+                                window.refreshCrushes();
                             });
                         } else {
                             $(this).popover({

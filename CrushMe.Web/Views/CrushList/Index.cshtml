@@ -29,14 +29,14 @@
         <small>recebido a {{DateSent}}</small>
         <div class="candidates">
         {{#each Candidates}}
-            <img class="selected-{{Selected}}" src="http://graph.facebook.com/{{FbId}}/picture?type=normal" alt="{{Name}}" />
+            <img class="selected-{{Selected}}" src="http://graph.facebook.com/{{FbId}}/picture?type=square" alt="{{Name}}" />
         {{/each}}
         </div>
     </div>
 </script>
 <script id="crush-sent-template" type="text/x-handlebars-template">
     <div data-crush-id="{{Id}}" class="crush-sent crush-status-{{Status}}">
-        <img src="http://graph.facebook.com/{{TargetId}}/picture?type=large" alt="{{TargetName}}" class="crush-picture" />
+        <img src="http://graph.facebook.com/{{TargetId}}/picture?type=square" alt="{{TargetName}}" class="crush-picture" />
         <span class="crush-name">{{TargetName}}</span>
         <small>enviado a {{DateSent}}</small>
     </div>
@@ -44,6 +44,7 @@
 
 @section scripts {
     <script>
+       
         $(function () {
             var callout = $('<span class="callout" styel="display: none">clique para responder!</span>'),
                 receivedHolder = $("#crushes-received"),
@@ -94,6 +95,42 @@
              fetchCrushes("/crushes/received", receivedTemplate, receivedHolder);
              fetchCrushes("/crushes/sent", sentTemplate, sentHolder);
 
+             var bindModal = function (modal) {
+                 var chosenId = 0;
+
+                 modal.on("click", ".candidate", function () {
+                     var self = $(this);
+
+                     modal.find(".candidate-chosen").text(self.children(".candidate-name").text());
+                     chosenId = self.data("targetId");
+                 });
+
+                 modal.on("click", ".btn-cancel", function () {
+                     $.ajax({
+                         url: "/crush/chose/" + modal.data("crushId"),
+                         type: "POST",
+                         dataType: "json"
+                     }).done(function (data) {
+                         modal.modal("hide");
+                         window.refreshCrushes();
+                     });
+                 });
+
+                 modal.on("click", ".btn-primary", function () {
+                     $.ajax({
+                         url: "/crush/chose/" + modal.data("crushId"),
+                         type: "POST",
+                         dataType: "json",
+                         data: {
+                             candidateFbId : chosenId
+                         }
+                     }).done(function (data) {
+                         modal.modal("hide");
+                         window.refreshCrushes();
+                     });
+                 });
+             };
+
              receivedHolder.on("click", ".crush-received", function () {
                  var self = $(this);
 
@@ -102,9 +139,15 @@
                      type: "GET",
                      dataType: "HTML"
                  }).done(function (modal) {
-                     $(modal).appendTo(document.body).modal();
+                     var modal = $(modal).appendTo(document.body).modal();
+                     bindModal(modal.children(".crush-modal"));
                  });
              });
+
+             window.refreshCrushes = function () {
+                 fetchCrushes("/crushes/received", receivedTemplate, receivedHolder);
+                 fetchCrushes("/crushes/sent", sentTemplate, sentHolder);
+             };
         });
     </script>
 }

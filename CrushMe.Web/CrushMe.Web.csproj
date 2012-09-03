@@ -152,6 +152,7 @@
     <Compile Include="Helpers\BootstrapHtmlHelperExtensions.cs" />
     <Compile Include="Helpers\EnablePostRequestGetAttribute.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\ListExtensions.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="Infrastructure\AutoMapperProfiles\CandidateMapperProfile.cs" />
     <Compile Include="Infrastructure\AutoMapperProfiles\CrushesListMapperProfile.cs" />
