@@ -62,10 +62,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CrushMe.Api\CrushMe.Api.csproj">
-      <Project>{40cc0f8f-9418-4b46-a7df-8bc66c8e8dee}</Project>
-      <Name>CrushMe.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CrushMe.Database\CrushMe.Database.csproj">
       <Project>{dda1598d-cd97-4794-88bd-f2391c423a51}</Project>
       <Name>CrushMe.Database</Name>
