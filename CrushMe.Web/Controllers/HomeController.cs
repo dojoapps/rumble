@@ -30,6 +30,7 @@ namespace CrushMe.Web.Controllers
             
             if (!string.IsNullOrEmpty(signed_request) && client.TryParseSignedRequest(signed_request, out jsonRequest))
             {
+                
                 client.AccessToken = jsonRequest.oauth_token.ToString();
                 try
                 {
