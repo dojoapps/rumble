@@ -10,6 +10,7 @@ namespace CrushMe.Database.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(CrushMe.Database.CrushMeContext context)

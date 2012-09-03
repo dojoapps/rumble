@@ -30,7 +30,11 @@ namespace CrushMe.Web.Controllers
             
             if (!string.IsNullOrEmpty(signed_request) && client.TryParseSignedRequest(signed_request, out jsonRequest))
             {
-                
+                if (jsonRequest == null || jsonRequest.oauth_token == null )
+                {
+                    return View("FacebookAuth");
+                }
+
                 client.AccessToken = jsonRequest.oauth_token.ToString();
                 try
                 {
@@ -90,7 +94,7 @@ namespace CrushMe.Web.Controllers
                 }
                 catch (FacebookOAuthException ex)
                 {
-                    return RedirectToAction("Welcome");
+                    return View("FacebookAuth");
                 }
             }
             else if (string.IsNullOrEmpty(error))
@@ -103,7 +107,7 @@ namespace CrushMe.Web.Controllers
                     ConfigurationManager.AppSettings["Facebook_AppId"],
                     ConfigurationManager.AppSettings["Facebook_CanvasUrl"]);
 
-                return Redirect(oauthUrl);
+               return View("FacebookAuth");
             }
         }
 
