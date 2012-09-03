@@ -90,12 +90,12 @@ namespace CrushMe.Database.Services
                               .Take(CrushCandidatesLength - 1).ToList()
                               .Select(x => new CrushCandidate() {
                                 Selected = false,
-                                UserId = x
+                                User = db.Users.Find(x)
                               }).ToList();
 
             candidates.Add(new CrushCandidate() {
                 Selected = false,
-                User = db.Users.Find(crusherId)
+                 User = db.Users.Find(crusherId)
             });
 
             return candidates;
