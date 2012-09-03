@@ -192,6 +192,7 @@
     <Content Include="Content\images\nao-respondido.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\images\startupdevrumble-logo.png" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />

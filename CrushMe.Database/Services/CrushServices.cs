@@ -72,16 +72,28 @@ namespace CrushMe.Database.Services
 
         private List<CrushCandidate> CandidatesFor(long crusherId, long targetId)
         {
-            var candidates = (from u in db.Users
-                              where u.Id != targetId && u.Id != crusherId
+            var target = db.Users.Find(targetId);
+            List<long> preCandidateIds;
+            if (target != null)
+            {
+                preCandidateIds = target.Friends.Select(x => x.FbId).ToList();
+            }
+            else
+            {
+                preCandidateIds = db.Users.Select(x => x.Id).ToList();
+            }
+
+            var candidates = (from pcId in preCandidateIds
+                              where pcId != targetId && pcId != crusherId
                               orderby Guid.NewGuid()
-                              select u)
+                              select pcId)
                               .Take(CrushCandidatesLength - 1).ToList()
                               .Select(x => new CrushCandidate() {
                                 Selected = false,
-                                User = x
+                                UserId = x
                               }).ToList();
-            candidates.Add(new CrushCandidate() { 
+
+            candidates.Add(new CrushCandidate() {
                 Selected = false,
                 User = db.Users.Find(crusherId)
             });
