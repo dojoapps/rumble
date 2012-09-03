@@ -123,5 +123,11 @@ namespace CrushMe.Web.Controllers
             return View();
         }
 
+        [GET("/sobre")]
+        public ActionResult About()
+        {
+            return View();
+        }
+
     }
 }
