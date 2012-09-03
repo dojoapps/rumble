@@ -14,7 +14,7 @@ namespace CrushMe.Database
     {
         public CrushMeContext() : base(GetConnectionString())
         {
-            System.Data.Entity.Database.SetInitializer(new DbInitializer<CrushMeContext>());
+            System.Data.Entity.Database.SetInitializer(new ValidateDatabase<CrushMeContext>());
         }
 
         public DbSet<User> Users { get; set; }
@@ -47,30 +47,21 @@ namespace CrushMe.Database
         }
     }
 
-    public class DbInitializer<T> : DropCreateDatabaseAlways<T>
-        where T : CrushMeContext
+    public class ValidateDatabase<TContext> : IDatabaseInitializer<TContext> where TContext : DbContext
     {
-
-        protected override void Seed(T db)
+        public void InitializeDatabase(TContext context)
         {
-            AddOrUpdateUser(db, 100000193426007, "Felipe Amorim");
-            AddOrUpdateUser(db, 734963830, "Vicente de Alencar");
-            for (int i = 0; i < 11; i++)
+            if (!context.Database.Exists())
             {
-                AddOrUpdateUser(db, 100000 + i, "Test " + i);
+                throw new Exception("Database does not exist. Try using Update-Database.");
             }
-
-            base.Seed(db);
-        }
-
-        private void AddOrUpdateUser(CrushMeContext db, long fbId, string name)
-        {
-            if (db.Users.FirstOrDefault(x => x.Name == name && x.Id == fbId) == null)
-                db.Users.Add(new User()
+            else
+            {
+                if (!context.Database.CompatibleWithModel(true))
                 {
-                    Id = fbId,
-                    Name = name
-                });
+                    throw new InvalidOperationException("The database is not compatible with the entity model. Try using Update-Database.");
+                }
+            }
         }
     }
 }
