@@ -21,9 +21,11 @@
                         @if (Request.IsAuthenticated)
                         {
                             <a href="javascript:void();" class="crush-new-modal">Envie um crush!</a>
+                        } else {
+                            <a href="https://apps.facebook.com/crushmeapp/">Não perca tempo!</a>
                         }
-                        <a href="javascript:void();">Como funciona</a>
-                        <a href="javascript:void();">CrushMe Party!</a>
+                        <a href="/como-funciona">Como funciona</a>
+                        <a href="/festa-de-lancamento">Crush Me Party!</a>
                     </aside>
                 </div>
                 <section id="main" class="span9">
@@ -43,7 +45,7 @@
                 <h3>Envie um crush!</h3>
               </div>
               <div class="modal-body">
-                <input type="text" class="candidate-autocomplete" style="width: 90%;" placeholder="escolha um de seus amigos e ou procure entre todos os usuários do CrushMe!" />
+                <input type="text" class="candidate-autocomplete" style="width: 90%;" placeholder="escolha um de seus amigos e ou procure entre todos os usuários do Crush Me!" />
 
                 <div class="candidate-list"></div>
               </div>
