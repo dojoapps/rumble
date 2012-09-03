@@ -22,7 +22,7 @@
                         {
                             <a href="/dashboard" >Meus crushes</a>
                             <a href="javascript:void();" class="crush-new-modal">Envie um crush!</a>
-                            <a href="javascript:sendRequestViaMultiFriendSelector()">Chame seus amigos!</a>
+                            <!---<a href="javascript:sendRequestViaMultiFriendSelector()">Chame seus amigos!</a> --->
                         } else {
                             <a href="https://apps.facebook.com/crushmeapp/">Login</a>
                         }
@@ -154,53 +154,6 @@
                 });
             </script>
         }
-        <div id="fb-root"></div>
-<script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '@System.Configuration.ConfigurationManager.AppSettings["Facebook_AppId"]', // App ID
-            channelUrl: '//dojorumble.apphb.com/channel.html', // Channel File
-            status: true, // check login status
-            cookie: true, // enable cookies to allow the server to access the session
-            xfbml: true,  // parse XFBML,
-            frictionlessRequests: true
-        });
-
-        window.sendRequestViaMultiFriendSelector = function() {
-            FB.ui({
-                method: 'apprequests',
-                message: 'Venha para o CrushMe!'
-            }, requestCallback);
-        }
-
-        function requestCallback(response) {
-            $("#facebook-request-modal").modal().modal("show");
-
-            setTimeout(function () {
-                $("#facebook-request-modal").modal("hide");
-            }, 2000);
-        }
-
-        // Additional initialization code here
-    };
-
-    // Load the SDK Asynchronously
-    (function (d) {
-        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        if (d.getElementById(id)) { return; }
-        js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "//connect.facebook.net/pt_BR/all.js";
-        ref.parentNode.insertBefore(js, ref);
-    }(document));
-</script>
-       
-        <div id="facebook-request-modal" class="modal hide fade">
-          <div class="modal-body">
-            <p>Obrigado por participar!</p>
-            </div>
-          <div class="modal-footer">
-            <a href="#" class="btn btn-primary"  data-dismiss="modal" aria-hidden="true">Fechar</a>
-          </div>
-        </div>
+  
     </body>
 </html>
