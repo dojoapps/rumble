@@ -16,11 +16,13 @@
             <div class="row-fluid">
                 <div class="span3">
                     <aside class="main-menu" >
-                        <a href="/dashboard" style="background-color: white;"><img src="@Url.Content("~/Content/images/crushme-logo.png")" alt="Crush Me"/></a>
+                        <img src="@Url.Content("~/Content/images/crushme-logo.png")" alt="Crush Me"/>
                         
                         @if (Request.IsAuthenticated)
                         {
+                            <a href="/dashboard" >Meus crushes</a>
                             <a href="javascript:void();" class="crush-new-modal">Envie um crush!</a>
+                            <a href="javascript:sendRequestViaMultiFriendSelector()">Chame seus amigos!</a>
                         } else {
                             <a href="https://apps.facebook.com/crushmeapp/">Login</a>
                         }
@@ -152,5 +154,24 @@
                 });
             </script>
         }
+        <div id="fb-root"></div>
+        <script src="http://connect.facebook.net/en_US/all.js"></script>
+        <script>
+            FB.init({
+                appId: '@System.Configuration.ConfigurationManager.AppSettings["Facebook_AppId"]',
+                frictionlessRequests: true
+            });
+
+            function sendRequestViaMultiFriendSelector() {
+                FB.ui({
+                    method: 'apprequests',
+                    message: 'Venha para o CrushMe!'
+                }, requestCallback);
+            }
+
+            function requestCallback(response) {
+                window.location.href = "/dashboard";
+            }
+    </script>
     </body>
 </html>
