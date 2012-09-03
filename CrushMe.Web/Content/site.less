@@ -93,12 +93,21 @@ h1 {
 
 .crush-received,
 .crush-sent {
-	padding: 5px;
-	width: 90%;
-	max-width: 1037px;
-	margin-bottom: 12px;
-	cursor: pointer;
-	position: relative;
+    padding: 5px;
+    width: 90%;
+    max-width: 1037px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    position: relative;
+
+    .crush-icon {
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		top: 5px;
+		right: 5px;
+		background-repeat: no-repeat;
+    }
 }
 
 .crush-received {
@@ -143,8 +152,36 @@ h1 {
     }
 }
 
+.crush-status-1 {
+	background-color: @green;
+
+    .crush-icon {
+		background-image: url(images/coracao.png);
+    }
+}
+
 .crush-status-0 {
-	background-color: @grayLighter;
+    background-color: @grayLighter;
+
+    .crush-icon {
+		background-image: url(images/nao-respondido.png);
+    }
+}
+
+.crush-status-2 {
+	background-color: lighten(@red, 15%);
+
+    .crush-icon {
+		background-image: url(images/coracao-quebrado.png);
+    }
+}
+
+.crush-status-2:hover {
+    background-color: lighten(@red, 30%);
+}
+
+.crush-status-1:hover {
+    background-color: lighten(@green, 30%);
 }
 
 .crush-status-0:hover {
