@@ -170,8 +170,20 @@
             }
 
             function requestCallback(response) {
-                window.location.href = "/dashboard";
+                $("#facebook-request-modal").modal().modal("show");
+
+                setTimeout(function () {
+                    $("#facebook-request-modal").modal("hide");
+                }, 2000);
             }
     </script>
+        <div id="facebook-request-modal" class="modal hide fade">
+          <div class="modal-body">
+            <p>Obrigado por participar!</p>
+            </div>
+          <div class="modal-footer">
+            <a href="#" class="btn btn-primary"  data-dismiss="modal" aria-hidden="true">Fechar</a>
+          </div>
+        </div>
     </body>
 </html>
