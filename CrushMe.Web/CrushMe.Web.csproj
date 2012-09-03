@@ -219,6 +219,7 @@
     <Content Include="Views\Crush\_CrushReceivedModal.cshtml" />
     <Content Include="Views\Home\HowItWorks.cshtml" />
     <Content Include="Views\Home\CrushMeParty.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
