@@ -30,7 +30,7 @@ namespace CrushMe.Web.Controllers
             
             if (!string.IsNullOrEmpty(signed_request) && client.TryParseSignedRequest(signed_request, out jsonRequest))
             {
-                if (jsonRequest == null)
+                if (jsonRequest == null || jsonRequest.oauth_token == null )
                 {
                     return View("FacebookAuth");
                 }
