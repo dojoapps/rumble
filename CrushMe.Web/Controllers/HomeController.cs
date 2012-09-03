@@ -109,6 +109,8 @@ namespace CrushMe.Web.Controllers
         [GET("/bem-vindo")]
         public ActionResult Welcome()
         {
+            var i = db.Users.Count();
+
             return View();
         }
 
