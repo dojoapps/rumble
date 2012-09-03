@@ -10,10 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{33B663
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Database", "CrushMe.Database\CrushMe.Database.csproj", "{DDA1598D-CD97-4794-88BD-F2391C423A51}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{6E0881BB-CDBD-4E9B-8D6D-8CA9BFF8D6BF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Tests", "CrushMe.Tests\CrushMe.Tests.csproj", "{91774920-F38F-4D40-93CB-80B1A0F3CBF3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Web", "CrushMe.Web\CrushMe.Web.csproj", "{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}"
 EndProject
 Global
@@ -26,10 +22,6 @@ Global
 		{DDA1598D-CD97-4794-88BD-F2391C423A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDA1598D-CD97-4794-88BD-F2391C423A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDA1598D-CD97-4794-88BD-F2391C423A51}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91774920-F38F-4D40-93CB-80B1A0F3CBF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91774920-F38F-4D40-93CB-80B1A0F3CBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91774920-F38F-4D40-93CB-80B1A0F3CBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91774920-F38F-4D40-93CB-80B1A0F3CBF3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,8 +29,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{91774920-F38F-4D40-93CB-80B1A0F3CBF3} = {6E0881BB-CDBD-4E9B-8D6D-8CA9BFF8D6BF}
 	EndGlobalSection
 EndGlobal
