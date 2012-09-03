@@ -183,6 +183,7 @@
     <Content Include="Content\images\crushme-logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\images\dojo-logo.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
