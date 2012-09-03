@@ -97,16 +97,8 @@ namespace CrushMe.Web.Controllers
                     return View("FacebookAuth");
                 }
             }
-            else if (string.IsNullOrEmpty(error))
-            {
-                return RedirectToAction("Welcome");
-            } 
             else 
             {
-                var oauthUrl = string.Format(@"https://www.facebook.com/dialog/oauth/?client_id={0}&redirect_uri={1}",
-                    ConfigurationManager.AppSettings["Facebook_AppId"],
-                    ConfigurationManager.AppSettings["Facebook_CanvasUrl"]);
-
                return View("FacebookAuth");
             }
         }

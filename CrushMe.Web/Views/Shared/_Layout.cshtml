@@ -98,7 +98,8 @@
                     });
 
                     var fetchCandidate = function (query) {
-                        candidateList.empty();                        
+                        candidateList.empty();
+                        newCrushDialog.find(".candidate-chosen").empty();
                         newCrushDialog.modal("show");
 
                         loader.show();
