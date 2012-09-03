@@ -16,7 +16,7 @@
             <div class="row-fluid">
                 <div class="span3">
                     <aside class="main-menu" >
-                        <img src="@Url.Content("~/Content/images/crushme-logo.png")" alt="Crush Me"/>
+                        <a href="/dashboard" style="background-color: white;"><img src="@Url.Content("~/Content/images/crushme-logo.png")" alt="Crush Me"/></a>
                         
                         @if (Request.IsAuthenticated)
                         {
@@ -46,9 +46,9 @@
                 <h3>Envie um crush!</h3>
               </div>
               <div class="modal-body">
-                <input type="text" class="candidate-autocomplete" style="width: 90%;" placeholder="escolha um de seus amigos e ou procure entre todos os usuários do Crush Me!" />
+                <input type="text" class="candidate-autocomplete" style="width: 500px;" placeholder="escolha um de seus amigos e ou procure entre todos os usuários do Crush Me!" />
 
-                <div class="candidate-list"></div>
+                <div class="candidate-list" style="overflow: scroll; height: 360px; overflow-x: hidden;"></div>
               </div>
               <div class="modal-footer">
                 <button class="btn btn-close" data-dismiss="modal" aria-hidden="true">Fechar</button>

@@ -102,7 +102,7 @@
 
                  modal.on("click", ".candidate", function () {
                      var self = $(this);
-
+                     console.log(self);
                      modal.find(".candidate-chosen").text(self.children(".candidate-name").text());
                      chosenId = self.data("targetId");
                  });
@@ -142,7 +142,7 @@
                      dataType: "HTML"
                  }).done(function (modal) {
                      var modal = $(modal).appendTo(document.body).modal();
-                     bindModal(modal.children(".crush-modal"));
+                     bindModal(modal);
                  });
              });
 
