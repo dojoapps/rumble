@@ -94,7 +94,7 @@ namespace CrushMe.Web.Controllers
                 }
                 catch (FacebookOAuthException ex)
                 {
-                    return RedirectToAction("Welcome");
+                    return View("FacebookAuth");
                 }
             }
             else if (string.IsNullOrEmpty(error))
@@ -107,7 +107,7 @@ namespace CrushMe.Web.Controllers
                     ConfigurationManager.AppSettings["Facebook_AppId"],
                     ConfigurationManager.AppSettings["Facebook_CanvasUrl"]);
 
-                return Redirect(oauthUrl);
+               return View("FacebookAuth");
             }
         }
 
