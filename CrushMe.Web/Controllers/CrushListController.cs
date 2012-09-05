@@ -37,7 +37,7 @@ namespace CrushMe.Web.Controllers
         [GET("/crushes/sent")]
         public ActionResult CrushesSent(int page = 0)
         {
-            var crushesList = db.Crushes.Where(x => x.CrusherId == UserId)
+            var crushesList = db.Crushes.Where(x => x.CrusherId == UserId && x.FatherCrushId == null)
                 .OrderByDescending(x => x.DateCreated)
                 .Skip(page).Take(10)
                 .MapTo<CrushSentViewModel>();

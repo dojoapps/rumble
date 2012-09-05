@@ -26,20 +26,19 @@
 
 <script id="crush-received-template" type="text/x-handlebars-template">
     <div data-crush-id="{{Id}}" class="crush-received crush-status-{{Status}}">
-        <small>recebido a {{DateSent}}</small>
+        <span class="status-text">{{statusText this}}</span><span class="date-received">recebido {{DateSent}}</span>
         <div class="candidates">
         {{#each Candidates}}
-            <img class="selected-{{Selected}}" src="http://graph.facebook.com/{{FbId}}/picture?type=square" alt="{{Name}}" />
+            <div class="candidate"><img class="selected-{{Selected}}" src="http://graph.facebook.com/{{FbId}}/picture?type=square" alt="{{Name}}" width="50" height="50" /></div>
         {{/each}}
         </div>
-        <div class="crush-icon"></div>
     </div>
 </script>
 <script id="crush-sent-template" type="text/x-handlebars-template">
     <div data-crush-id="{{Id}}" class="crush-sent crush-status-{{Status}}">
         <img src="http://graph.facebook.com/{{TargetId}}/picture?type=square" alt="{{TargetName}}" class="crush-picture" />
         <span class="crush-name">{{TargetName}}</span>
-        <small>enviado a {{DateSent}}</small>
+        <small>enviado {{DateSent}}</small>
         <div class="crush-icon"></div>
     </div>
 </script>
@@ -89,6 +88,13 @@
                      }
 
                      holder.html(markUp);
+
+                     // Roda Isotope para receiveds
+                     if (url === "/crushes/received") {
+                         $(".crush-received > .candidates").isotope({
+                             itemSelector : ".candidate"
+                         });
+                     }
                  }).always(function () {
                      loader.fadeOut("slow", function () { loader.remove(); });
                  });
@@ -150,6 +156,16 @@
                  fetchCrushes("/crushes/received", receivedTemplate, receivedHolder);
                  fetchCrushes("/crushes/sent", sentTemplate, sentHolder);
              };
+
+             Handlebars.registerHelper('statusText', function (options) {
+                 if (this.Status === 0) {
+                     return "Você não foi escolhido...";
+                 } else if (this.Status === 1) {
+                     return "Seu alvo acertou você!";
+                 } else {
+                     return "Aguardando resposta...";
+                 }
+             });
         });
     </script>
 }

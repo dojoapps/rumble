@@ -145,8 +145,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CrushListController.cs" />
     <Compile Include="Core\DisposableObject.cs" />
-    <Compile Include="Core\Extensions\ObjectExtensions.cs" />
-    <Compile Include="Core\Extensions\StringExtensions.cs" />
+    <Compile Include="Helpers\ObjectExtensions.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="Helpers\TimeSpanExtensions.cs" />
     <Compile Include="Core\Filters\FacebookAuthorizationFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
