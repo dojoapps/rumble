@@ -27,6 +27,11 @@ namespace CrushMe.Web.Controllers
                 {
                     CurrentUser = db.Users.FirstOrDefault(x => x.Id == UserId);
 
+                    if (CurrentUser.Gender == UserGender.Unknown || CurrentUser.GenderPreference == UserGender.Unknown)
+                    {
+                        ViewBag.ShowGenderModal = true;
+                    }
+
                     if (CurrentUser == null)
                     {
                         FormsAuthentication.SignOut();

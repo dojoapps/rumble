@@ -52,7 +52,8 @@ namespace CrushMe.Web.Controllers
                             Id = id,
                             IsActive = true,
                             Name = (string)me.name,
-                            Friends = new List<UserFriend>()
+                            Friends = new List<UserFriend>(),
+                            Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown
                         };
 
                         db.Users.Add(user);
@@ -60,6 +61,10 @@ namespace CrushMe.Web.Controllers
                     else if (user.IsActive == false)
                     {
                         user.IsActive = true;
+
+                        if ( me.gender ) {
+                            user.Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown;
+                        }
                     }
 
                     // Atualiza os amigos do usuários

@@ -8,6 +8,12 @@ using Facebook;
 
 namespace CrushMe.Database.Models
 {
+    public enum UserGender {
+        Unknown,
+        Male,
+        Female
+    }
+
     public class User
     {
         [Key]
@@ -17,6 +23,10 @@ namespace CrushMe.Database.Models
         public string Name { get; set; }
 
         public bool IsActive { get; set; }
+
+        public UserGender? Gender { get; set; }
+
+        public UserGender? GenderPreference { get; set; }
 
         [InverseProperty("Crusher")]
         public virtual List<Crush> Crushes { get; set; }

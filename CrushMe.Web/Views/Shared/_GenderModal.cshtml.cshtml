@@ -1,0 +1,21 @@
+﻿@model CrushMe.Web.Models.UserGenderViewModel
+<div class="modal fade gender-modal" tabindex="-1" role="dialog" >
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Escolha suas preferências</h3>
+  </div>
+  <div class="modal-body">
+    <div class="chosen-candidate-list">
+        <em>Estas informações não são compartilhadas com ninguém.</em>
+       
+        @if (Model.Gender == CrushMe.Database.Models.UserGender.Unknown)
+        {
+            <span class="gender-male"></span>
+            <span class="gender-female"></span>
+        }
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary">Salvar</button>
+  </div>
+</div>
