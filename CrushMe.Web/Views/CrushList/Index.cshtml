@@ -26,7 +26,7 @@
 
 <script id="crush-received-template" type="text/x-handlebars-template">
     <div data-crush-id="{{Id}}" class="crush-received crush-status-{{Status}}">
-        <span class="status-text">{{statusText this}}</span><span class="date-received">recebido {{DateSent}}</span>
+        <div class="crush-icon" title="{{status_text_received this}}"></div>
         <div class="candidates">
         {{#each Candidates}}
             <div class="candidate"><img class="selected-{{Selected}}" src="http://graph.facebook.com/{{FbId}}/picture?type=square" alt="{{Name}}" width="50" height="50" /></div>
@@ -39,7 +39,7 @@
         <img src="http://graph.facebook.com/{{TargetId}}/picture?type=square" alt="{{TargetName}}" class="crush-picture" />
         <span class="crush-name">{{TargetName}}</span>
         <small>enviado {{DateSent}}</small>
-        <div class="crush-icon"></div>
+        <div class="crush-icon" title="{{status_text_sent this}}"></div>
     </div>
 </script>
 
@@ -92,9 +92,10 @@
                      // Roda Isotope para receiveds
                      if (url === "/crushes/received") {
                          $(".crush-received > .candidates").isotope({
-                             itemSelector : ".candidate"
+                             itemSelector: ".candidate"
                          });
                      }
+                     holder.find(".crush-icon").tooltip();
                  }).always(function () {
                      loader.fadeOut("slow", function () { loader.remove(); });
                  });
@@ -157,13 +158,23 @@
                  fetchCrushes("/crushes/sent", sentTemplate, sentHolder);
              };
 
-             Handlebars.registerHelper('statusText', function (options) {
-                 if (this.Status === 0) {
-                     return "Você não foi escolhido...";
+             Handlebars.registerHelper('status_text_received', function (options) {
+                 if (this.Status === 2) {
+                     return "Você não acertou quem te mandou.";
                  } else if (this.Status === 1) {
-                     return "Seu alvo acertou você!";
+                     return "Você acertou seu alvo!";
                  } else {
-                     return "Aguardando resposta...";
+                     return "Responda logo este crush!";
+                 }
+             });
+
+             Handlebars.registerHelper('status_text_sent', function (options) {
+                 if (this.Status === 2) {
+                     return "Você não foi escolhido";
+                 } else if (this.Status === 1) {
+                     return "Seu alvo te escolheu!";
+                 } else {
+                     return "Ainda não foi respondido...";
                  }
              });
         });

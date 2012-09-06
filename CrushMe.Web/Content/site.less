@@ -95,38 +95,31 @@ h1 {
 .crush-sent {
     display: inline-block;
     margin-right: 15px;
-	position: relative;
-    cursor: pointer;
+    position: relative;
+    
 
     .crush-icon {
-		position: absolute;
 		width: 50px;
 		height: 50px;
-		top: 23px;
-		right: 5px;
 		background-repeat: no-repeat;
     }
 }
 
 .crush-received {
-	padding:15px;
-	width: 250px;
+    padding: 2px;
+    width: 320px;
+	cursor: pointer;
 
     .date-received {
-		text-transform: lowercase;
-		position: absolute;
-		top: 5px;
-		right: 5px;
-    }
-
-    .callout {
-        color: @white;
+        text-transform: lowercase;
         position: absolute;
-        left: 5px;
+        top: 5px;
+        right: 5px;
     }
 
     .candidates {
         width: 250px;
+		margin-left: 70px;
     }
 
     .candidate {
@@ -135,16 +128,28 @@ h1 {
     }
 
     .selected-true {
-        border: 1px solid @green;
+        
     }
 
     .selected-false {
-        margin: 1px;
+       
+    }
+
+    .crush-icon {
+		float: left;
+		margin-left: 10px;
+
     }
 }
 
 .crush-sent {
 	 min-width: 250px;
+
+	.crush-icon {
+		position: absolute;
+		top: 23px;
+		right: 5px;
+    }
 
     .crush-picture {
         height: 85px;
