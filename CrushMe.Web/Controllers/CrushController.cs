@@ -50,10 +50,10 @@ namespace CrushMe.Web.Controllers
                     }
                     else
                     {
-                        var crushService = new CrushServices(db);
+                       
                         crush.Status = EnumStatusCrush.NoMatch;
-
-                        crushService.Crush(UserId, candidateFbId.Value, id);
+                        // var crushService = new CrushServices(db);
+                        // crushService.Crush(UserId, candidateFbId.Value, id);
                     }
                 }
                 else
