@@ -166,6 +166,7 @@
     <Compile Include="Models\CrushesReceivedListViewModel.cs" />
     <Compile Include="Models\CrushesSentListViewModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Models\UserGenderViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,12 +186,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\images\dojo-logo.png" />
+    <Content Include="Content\images\female.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\images\glyphicons-halflings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\images\male.png" />
     <Content Include="Content\images\nao-respondido.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -225,6 +228,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\FacebookAuth.cshtml" />
     <Content Include="Views\Crush\_CrushChosenModal.cshtml" />
+    <Content Include="Views\Shared\_GenderModal.cshtml.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
