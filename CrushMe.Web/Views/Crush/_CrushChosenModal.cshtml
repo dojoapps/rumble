@@ -1,0 +1,32 @@
+﻿@model CrushMe.Web.Models.CrushReceivedViewModel
+@{
+    var chosenCandidates = Model.Candidates.Where(x => x.Selected == true);
+    var otherCandidates = Model.Candidates.Where(x => x.Selected == false);
+}
+<div class="modal fade crush-modal" tabindex="-1" role="dialog" data-crush-id="@Model.Id" >
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Crush para você!</h3>
+  </div>
+  <div class="modal-body">
+    <div class="chosen-candidate-list">
+        <p>Escolhido(a)</p>
+        @foreach (var chosen in chosenCandidates)
+        {
+            <div class="chosen-candidate crush-status-@((int)Model.Status)">
+                <img src="http://graph.facebook.com/@chosen.FbId/picture?type=normal" alt="@chosen.Name" class="candidate-picutre"/>
+                <span class="candidate-name">@chosen.Name</span>
+                <div class="crush-icon"></div>
+            </div>
+        }
+        <p>Outras opções</p>
+        @foreach (var canditade in otherCandidates)
+        {
+           <img src="http://graph.facebook.com/@canditade.FbId/picture?type=square" title="@canditade.Name" class="other-candidate-picutre"/>
+        }
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary">Fechar</button>
+  </div>
+</div>

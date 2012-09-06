@@ -29,7 +29,7 @@
         <div class="crush-icon" title="{{status_text_received this}}"></div>
         <div class="candidates">
         {{#each Candidates}}
-            <div class="candidate"><img class="selected-{{Selected}}" src="http://graph.facebook.com/{{FbId}}/picture?type=square" alt="{{Name}}" width="50" height="50" /></div>
+            <div class="candidate"><img class="selected-{{Selected}}" src="http://graph.facebook.com/{{FbId}}/picture?type=square" title="{{Name}}" alt="{{Name}}" width="50" height="50" /></div>
         {{/each}}
         </div>
     </div>
@@ -94,6 +94,8 @@
                          $(".crush-received > .candidates").isotope({
                              itemSelector: ".candidate"
                          });
+
+                         holder.find(".candidate > img").tooltip();
                      }
                      holder.find(".crush-icon").tooltip();
                  }).always(function () {
@@ -104,7 +106,7 @@
              fetchCrushes("/crushes/received", receivedTemplate, receivedHolder);
              fetchCrushes("/crushes/sent", sentTemplate, sentHolder);
 
-             var bindModal = function (modal) {
+             var bindPendingModal = function (modal) {
                  var chosenId = 0;
 
                  modal.on("click", ".candidate", function () {
@@ -140,6 +142,14 @@
                  });
              };
 
+             var bindChosenModal = function (modal) {
+                 modal.on("click",".btn-primary",function() {
+                     modal.modal("hide");
+                 });
+
+                 modal.find(".other-candidate-picutre").tooltip();
+             };
+
              receivedHolder.on("click", ".crush-received", function () {
                  var self = $(this);
 
@@ -149,7 +159,11 @@
                      dataType: "HTML"
                  }).done(function (modal) {
                      var modal = $(modal).appendTo(document.body).modal();
-                     bindModal(modal);
+                     if (self.hasClass("crush-status-0")) {
+                         bindPendingModal(modal);
+                     } else {
+                         bindChosenModal(modal);
+                     }
                  });
              });
 

@@ -159,7 +159,6 @@
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="Infrastructure\AutoMapperProfiles\CandidateMapperProfile.cs" />
     <Compile Include="Infrastructure\AutoMapperProfiles\CrushesListMapperProfile.cs" />
-    <Compile Include="Infrastructure\AutoMapperProfiles\CrushViewModel.cs" />
     <Compile Include="Infrastructure\ImportedFilePathResolver.cs" />
     <Compile Include="Infrastructure\LessMinify.cs" />
     <Compile Include="Models\CandidateListViewModel.cs" />
@@ -225,6 +224,7 @@
     <Content Include="Views\Home\CrushMeParty.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\FacebookAuth.cshtml" />
+    <Content Include="Views\Crush\_CrushChosenModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
