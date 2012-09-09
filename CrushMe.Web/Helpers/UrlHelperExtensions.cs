@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace StarterTemplate.Helpers
 {
@@ -32,6 +33,17 @@ namespace StarterTemplate.Helpers
         public static string ToLogOut(this UrlHelper helper)
         {
             return helper.Action("LogOut", "Auth", new { area = "" });
+        }
+
+        public static string AbsoluteAction(this UrlHelper url, string action, string controller, object routeValues)
+        {
+            Uri requestUrl = url.RequestContext.HttpContext.Request.Url;
+ 
+            string absoluteAction = string.Format("{0}{1}",
+                                                requestUrl.GetLeftPart(UriPartial.Authority),
+                                                url.Action(action, controller, routeValues));
+
+            return absoluteAction;
         }
     }
 }
