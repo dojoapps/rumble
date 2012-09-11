@@ -46,24 +46,24 @@ namespace CrushMe.Web.Controllers
 
                     if (candidate.UserId == crush.CrusherId)
                     {
-                        crush.Status = EnumStatusCrush.Match;
+                        crush.Status = CrushStatus.Match;
                     }
                     else
                     {
                        
-                        crush.Status = EnumStatusCrush.NoMatch;
+                        crush.Status = CrushStatus.NoMatch;
                         // var crushService = new CrushServices(db);
                         // crushService.Crush(UserId, candidateFbId.Value, id);
                     }
                 }
                 else
                 {
-                    crush.Status = EnumStatusCrush.NoMatch;
+                    crush.Status = CrushStatus.NoMatch;
                 }
             }
             else
             {
-                crush.Status = EnumStatusCrush.NoMatch;
+                crush.Status = CrushStatus.NoMatch;
             }
 
             db.SaveChanges();
@@ -84,7 +84,7 @@ namespace CrushMe.Web.Controllers
             if (crush.TargetId == UserId)
             {
                 var viewModel = crush.MapTo<CrushReceivedViewModel>();
-                if (crush.Status == EnumStatusCrush.Pending)
+                if (crush.Status == CrushStatus.Pending)
                 {
                     return PartialView("_CrushReceivedModal", viewModel);
                 }

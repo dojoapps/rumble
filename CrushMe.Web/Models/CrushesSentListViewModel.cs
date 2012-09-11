@@ -21,7 +21,7 @@ namespace CrushMe.Web.Models
 
         public string TargetName { get; set; }
 
-        public EnumStatusCrush Status { get; set; }
+        public CrushStatus Status { get; set; }
 
         public string DateSent { get; set; }
     }

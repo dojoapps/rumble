@@ -8,15 +8,7 @@ namespace CrushMe.Database.Models
 {
     public class CrushCandidate
     {
-        public int Id { get; set; }
-
-        [Required]
-        public virtual User User { get; set; }
         public long UserId { get; set; }
-
-        [Required]
-        public virtual Crush Crush { get; set; }
-        public int CrushId { get; set; }
 
         public bool Selected { get; set; }
     }

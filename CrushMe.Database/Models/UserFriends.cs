@@ -7,15 +7,10 @@ namespace CrushMe.Database.Models
 {
     public class UserFriend
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
-        public long UserId { get; set; }
+        public string UserId { get; set; }
 
-        public virtual User User { get; set; }
-
-        public string Name { get; set; }
-
-        public long FbId { get; set; }
-
+        public List<long> Friends { get; set; }
     }
 }

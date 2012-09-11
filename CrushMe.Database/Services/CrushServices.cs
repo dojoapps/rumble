@@ -39,7 +39,7 @@ namespace CrushMe.Database.Services
                     Success = false
                 };
 
-            if (db.Crushes.Count(x => x.CrusherId == crusherId && x.TargetId == targetId && x.Status == EnumStatusCrush.Pending) > 3)
+            if (db.Crushes.Count(x => x.CrusherId == crusherId && x.TargetId == targetId && x.Status == CrushStatus.Pending) > 3)
             {
                 return new CrushResult()
                 {
@@ -57,7 +57,7 @@ namespace CrushMe.Database.Services
                 DateCreated = now,
                 DateExpires = now.AddDays(30),
                 FatherCrush = db.Crushes.Find(fatherCrushId),
-                Status = EnumStatusCrush.Pending,
+                Status = CrushStatus.Pending,
                 Target = target
             };
 
