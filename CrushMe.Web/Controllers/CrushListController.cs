@@ -4,16 +4,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CrushMe.Database.Infrastructure;
+using CrushMe.Core.Infrastructure;
 using CrushMe.Web.Models;
-using CrushMe.Database.Models;
+using CrushMe.Core.Models;
+using Raven.Client;
 
 namespace CrushMe.Web.Controllers
 {
     public class CrushListController : BaseController
     {
-        //
-        // GET: /User/
+        public CrushListController(IDocumentSession session) : base(session)
+        {
+
+        }
+        
         [GET("/dashboard")]
         public ActionResult Index()
         {
@@ -23,7 +27,7 @@ namespace CrushMe.Web.Controllers
         [GET("/crushes/received")]
         public ActionResult CrushesReceived(int page=0)
         {
-            var crushesList = db.Crushes.Where(x => x.TargetId == UserId)
+            var crushesList = RavenSession.Query<Crush>().Where(x => x.TargetId == UserId)
                 .OrderByDescending(x => x.DateCreated)
                 .Skip(page).Take(10)
                 .MapTo<CrushReceivedViewModel>();
@@ -37,7 +41,7 @@ namespace CrushMe.Web.Controllers
         [GET("/crushes/sent")]
         public ActionResult CrushesSent(int page = 0)
         {
-            var crushesList = db.Crushes.Where(x => x.CrusherId == UserId && x.FatherCrushId == null)
+            var crushesList = RavenSession.Query<Crush>().Where(x => x.CrusherId == UserId && x.ParentCrushId == null)
                 .OrderByDescending(x => x.DateCreated)
                 .Skip(page).Take(10)
                 .MapTo<CrushSentViewModel>();

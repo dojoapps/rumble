@@ -1,8 +1,9 @@
 ﻿using AttributeRouting.Web.Mvc;
-using CrushMe.Database;
-using CrushMe.Database.Models;
+using CrushMe.Core;
+using CrushMe.Core.Models;
 using Facebook;
 using Newtonsoft.Json;
+using Raven.Client;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,13 +11,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using CrushMe.Web.Helpers;
+using CrushMe.Core.Tasks;
+using CrushMe.Core.Tasks.UserTasks;
+using CrushMe.Core.Helpers;
 
 namespace CrushMe.Web.Controllers
 {
     [AllowAnonymous]
     public class HomeController : Controller
     {
-        public CrushMeContext db = new CrushMeContext();
+        public IDocumentSession RavenSession { get; set; }
+
+        public HomeController(IDocumentSession session)
+        {
+            RavenSession = session;
+        }
 
         //
         // GET: /Home/
@@ -43,20 +53,19 @@ namespace CrushMe.Web.Controllers
                     long id = 0;
                     long.TryParse(me.id, out id);
 
-                    var user = db.Users.Find(id);
+                    var user = RavenSession.Load<User>(id);
 
                     if (user == null)
                     {
                         user = new User()
                         {
-                            Id = id,
+                            Id = RavenSession.BuildRavenId<User>(id),
                             IsActive = true,
                             Name = (string)me.name,
-                            Friends = new List<UserFriend>(),
                             Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown
                         };
 
-                        db.Users.Add(user);
+                        RavenSession.Store(user);
                     }
                     else if (user.IsActive == false)
                     {
@@ -67,33 +76,25 @@ namespace CrushMe.Web.Controllers
                         }
                     }
 
+                    
+
                     // Atualiza os amigos do usuários
                     dynamic friendsDynamic = client.Get("me/friends");
                     List<dynamic> friends = JsonConvert.DeserializeObject<List<dynamic>>(friendsDynamic.data.ToString());
 
-                    var friendList = friends.Select(x => new User() { Name = x.name, Id = x.id, IsActive = false }).ToList();
-
-                    friendList.ForEach(u =>
+                    var userFriends = new UserFriends()
                     {
-                        var friendUser = db.Users.Find(u.Id);
-                        if ( friendUser == null)
-                        {
-                            friendUser = db.Users.Add(u);
-                        }
+                        Id = RavenSession.BuildRavenId<UserFriends>(id),
+                        FriendsIds = friends.Select(x => RavenSession.BuildRavenId<UserFriends>((long)x.id)).ToList()
+                    };
 
-                        if (!user.Friends.Any(f => f.FbId == u.Id))
-                        {
-                            user.Friends.Add(new UserFriend()
-                            {
-                                FbId = u.Id,
-                                Name = u.Name
-                            });
-                        }                        
-                    });
+                    RavenSession.Store(userFriends);
 
-                    db.SaveChanges();
+                    TaskExecutor.ExcuteLater(new ParseUserFriendsTask(id, friends.Select(x => (long)x.id).ToList()));
 
-                    FormsAuthentication.SetAuthCookie(id.ToString(), false);
+                    RavenSession.SaveChanges();
+
+                    FormsAuthentication.SetAuthCookie(user.Id, false);
 
                     return RedirectToAction("Index", "CrushList");
                 }
@@ -111,8 +112,6 @@ namespace CrushMe.Web.Controllers
         [GET("/bem-vindo")]
         public ActionResult Welcome()
         {
-            var i = db.Users.Count();
-
             return View();
         }
 

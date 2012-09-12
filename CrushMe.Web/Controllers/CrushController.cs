@@ -5,20 +5,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CrushMe.Database.Infrastructure;
-using CrushMe.Database.Models;
-using CrushMe.Database.Services;
+using CrushMe.Core.Infrastructure;
+using CrushMe.Core.Models;
+using CrushMe.Core.Services;
+using Raven.Client;
+using CrushMe.Core.Helpers;
 
 namespace CrushMe.Web.Controllers
 {
     public class CrushController : BaseController
     {
+        public CrushController(IDocumentSession session) : base(session)
+        {
+
+        }
+
         [POST("/crush/new")]
         public ActionResult CreateCrush(long targetId)
         {
-            var crushService = new CrushServices(db);
+            var crushService = new CrushServices(RavenSession);
 
-            var crush = crushService.Crush(UserId, targetId, null);
+            var crush = crushService.Crush(UserId.ToLongId(), targetId, null);
 
             return Json(new { success = true });
         }
@@ -28,17 +35,17 @@ namespace CrushMe.Web.Controllers
             return View();
         }
 
-        [POST("/crush/chose/{id}")]
+        [POST("/crush/pick/{id}")]
         public ActionResult ChoseCandidate(int id, long? candidateFbId) {
-            var crush = db.Crushes.FirstOrDefault(x => x.Id == id);
-            if (crush == null || crush.TargetId != UserId)
+            var crush = RavenSession.Load<Crush>(id);
+            if (crush == null || !crush.TargetId.Equals(UserId) )
             {
                 return HttpNotFound();
             }
 
             if (candidateFbId.HasValue)
             {
-                var candidate = crush.Candidates.FirstOrDefault(x => x.UserId == candidateFbId);
+                var candidate = crush.Candidates.FirstOrDefault(x => x.UserId == RavenSession.BuildRavenId<User>(candidateFbId));
 
                 if (candidate != null)
                 {
@@ -66,7 +73,7 @@ namespace CrushMe.Web.Controllers
                 crush.Status = CrushStatus.NoMatch;
             }
 
-            db.SaveChanges();
+            RavenSession.SaveChanges();
 
 
             return Json(new { success = true });           
@@ -75,7 +82,7 @@ namespace CrushMe.Web.Controllers
         [GET("/crush/{id}")]
         public ActionResult Details(int id)
         {
-            var crush = db.Crushes.FirstOrDefault(x => x.Id == id);
+            var crush = RavenSession.Load<Crush>(id);
             if (crush == null)
             {
                 return HttpNotFound();

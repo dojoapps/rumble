@@ -1,10 +1,10 @@
+using CrushMe.Core;
+using CrushMe.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
-using CrushMe.Web.Core;
-using CrushMe.Web.Core.Extensions;
 
 namespace CrushMe.Web.Helpers
 {

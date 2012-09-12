@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{33B663
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Database", "CrushMe.Database\CrushMe.Database.csproj", "{DDA1598D-CD97-4794-88BD-F2391C423A51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Core", "CrushMe.Core\CrushMe.Core.csproj", "{DDA1598D-CD97-4794-88BD-F2391C423A51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Web", "CrushMe.Web\CrushMe.Web.csproj", "{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}"
 EndProject

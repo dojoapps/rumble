@@ -1,5 +1,6 @@
-﻿using CrushMe.Database;
-using CrushMe.Database.Models;
+﻿using CrushMe.Core;
+using CrushMe.Core.Models;
+using Raven.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,16 @@ namespace CrushMe.Web.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        public CrushMeContext db = new CrushMeContext();
+        public IDocumentSession RavenSession { get; set; }
+
         public User CurrentUser = null;
 
-        public long UserId;
+        public string UserId;
+
+        public BaseController(IDocumentSession session)
+        {
+            this.RavenSession = session;
+        }        
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -23,20 +30,17 @@ namespace CrushMe.Web.Controllers
 
             if (Request.IsAuthenticated)
             {
-                if (long.TryParse(User.Identity.Name, out UserId))
+                CurrentUser = RavenSession.Load<User>(UserId);
+
+                if (CurrentUser.Gender == UserGender.Unknown || CurrentUser.GenderPreference == UserGender.Unknown)
                 {
-                    CurrentUser = db.Users.FirstOrDefault(x => x.Id == UserId);
+                    ViewBag.ShowGenderModal = true;
+                }
 
-                    if (CurrentUser.Gender == UserGender.Unknown || CurrentUser.GenderPreference == UserGender.Unknown)
-                    {
-                        ViewBag.ShowGenderModal = true;
-                    }
-
-                    if (CurrentUser == null)
-                    {
-                        FormsAuthentication.SignOut();
-                        filterContext.Result = new RedirectResult("/");
-                    }
+                if (CurrentUser == null)
+                {
+                    FormsAuthentication.SignOut();
+                    filterContext.Result = new RedirectResult("/");
                 }
             }
         }

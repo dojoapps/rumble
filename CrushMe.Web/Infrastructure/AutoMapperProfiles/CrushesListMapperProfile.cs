@@ -1,10 +1,11 @@
-﻿using CrushMe.Database.Models;
+﻿using CrushMe.Core.Models;
 using CrushMe.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using CrushMe.Web.Helpers;
+using CrushMe.Core.Helpers;
 
 namespace CrushMe.Web.Infrastructure.AutoMapperProfiles
 {
@@ -21,14 +22,14 @@ namespace CrushMe.Web.Infrastructure.AutoMapperProfiles
                             m => m.Candidates
                                     .Select(x => new CrushCandidateViewModel()
                                     {
-                                        FbId = x.UserId,
+                                        FbId = x.UserId.ToLongId(),
                                         Selected = x.Selected,
-                                        Name = x.User.Name
+                                        Name = x.Name
                                     }).ToList().Shuffle()));
 
             CreateMap<Crush, CrushSentViewModel>()
                 .ForMember(x => x.Id, o => o.MapFrom(m => m.Id))
-                .ForMember(x => x.TargetName, o => o.MapFrom(m => m.Target.Name.Split(' ')[0]))
+                .ForMember(x => x.TargetName, o => o.MapFrom(m => m.TargetName.Split(' ')[0]))
                 .ForMember(x => x.Status, o => o.MapFrom(m => m.Status))
                 .ForMember(x => x.TargetId, o => o.MapFrom(m => m.TargetId))
                 .ForMember(x => x.DateSent, o => o.MapFrom(m => DateTime.UtcNow.Subtract(m.DateCreated).ToReadableString()));

@@ -1,4 +1,4 @@
-﻿using CrushMe.Database.Models;
+﻿using CrushMe.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

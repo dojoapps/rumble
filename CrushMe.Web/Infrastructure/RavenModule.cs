@@ -1,4 +1,4 @@
-﻿using CrushMe.Web.Infrastructure.Indexes;
+﻿using CrushMe.Core.Indexes;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using Raven.Client;
