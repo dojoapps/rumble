@@ -28,10 +28,10 @@ namespace CrushMe.Web.Infrastructure.AutoMapperProfiles
                                     }).ToList().Shuffle()));
 
             CreateMap<Crush, CrushSentViewModel>()
-                .ForMember(x => x.Id, o => o.MapFrom(m => m.Id))
+                .ForMember(x => x.Id, o => o.MapFrom(m => m.Id.ToIntId()))
                 .ForMember(x => x.TargetName, o => o.MapFrom(m => m.TargetName.Split(' ')[0]))
                 .ForMember(x => x.Status, o => o.MapFrom(m => m.Status))
-                .ForMember(x => x.TargetId, o => o.MapFrom(m => m.TargetId))
+                .ForMember(x => x.TargetId, o => o.MapFrom(m => m.TargetId.ToLongId()))
                 .ForMember(x => x.DateSent, o => o.MapFrom(m => DateTime.UtcNow.Subtract(m.DateCreated).ToReadableString()));
 
         }

@@ -30,7 +30,7 @@ namespace CrushMe.Web.Controllers
 
             if (string.IsNullOrEmpty(query) && userFriendsList != null)
             {
-                var userFriends = RavenSession.Load<User>(userFriendsList.FriendsIds).ToList();
+                var userFriends = RavenSession.Load<User>(userFriendsList.FriendsIds).Where(x => x != null).ToList();
 
                 viewModel.Candidates = userFriends.OrderBy(x => x.Name).MapTo<CandidateViewModel>();
                 viewModel.PageCount = Math.Ceiling(userFriends.Count / 50d);

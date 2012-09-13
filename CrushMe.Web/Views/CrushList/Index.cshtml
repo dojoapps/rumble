@@ -133,7 +133,7 @@
 
                  modal.on("click", ".btn-primary", function () {
                      $.ajax({
-                         url: "/crush/chose/" + modal.data("crushId"),
+                         url: "/crush/pick/" + modal.data("crushId"),
                          type: "POST",
                          dataType: "json",
                          data: {
@@ -181,7 +181,7 @@
                  }
              };
 
-             window.setInterval(window.refreshCrushes, 10000);
+             // window.setInterval(window.refreshCrushes, 10000);
 
              Handlebars.registerHelper('status_text_received', function (options) {
                  if (this.Status === 2) {

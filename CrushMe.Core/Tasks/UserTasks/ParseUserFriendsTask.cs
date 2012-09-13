@@ -34,13 +34,21 @@ namespace CrushMe.Core.Tasks.UserTasks
             string[] friendsIds = friendsList.Select(x => (string)string.Format("{0}/{1}", userTag, x.uid)).ToArray();
             var friendsDocs = DocumentSession.Load<User>(friendsIds);
 
-            var userFriends = new UserFriends()
-            {
-                Id = DocumentSession.BuildRavenId<UserFriends>(UserId),
-                FriendsIds = friendsIds.ToList()
-            };
+            var userFriendsDocId = DocumentSession.BuildRavenId<UserFriends>(UserId);
 
-            DocumentSession.Store(userFriends);
+            var userFriendsDoc = DocumentSession.Load<UserFriends>(userFriendsDocId);
+
+            if (userFriendsDoc == null)
+            {
+                userFriendsDoc = new UserFriends()
+                {
+                    Id = DocumentSession.BuildRavenId<UserFriends>(UserId)                    
+                };
+
+                DocumentSession.Store(userFriendsDoc);
+            }
+
+            userFriendsDoc.FriendsIds = friendsIds.ToList();
 
             for (var i = 0; i < friendsList.Count; i++)
             {
@@ -48,14 +56,16 @@ namespace CrushMe.Core.Tasks.UserTasks
                 {
                     dynamic friendData = friendsList[i];
 
-                    DocumentSession.Store(new User()
+                    var userToAdd = new User()
                     {
                         Id = string.Format("{0}/{1}", userTag, friendData.uid),
                         Name = friendData.name,
                         IsActive = false,
                         GenderPreference = UserGender.Unknown,
                         Gender = (friendData.sex == "male") ? UserGender.Male : (friendData.sex == "female") ? UserGender.Female : UserGender.Unknown
-                    });                        
+                    };
+
+                    DocumentSession.Store(userToAdd);
 
                     if (i % 500 == 0)
                     {

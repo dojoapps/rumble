@@ -61,6 +61,7 @@ namespace CrushMe.Core.Services
                 Candidates = this.CandidatesFor(crusher, target),
                 CrusherId = crusher.Id,
                 TargetId = target.Id,
+                TargetName = target.Name,
                 DateCreated = now,
                 DateExpires = now.AddDays(30),
                 ParentCrushId = fatherCrushId,
@@ -69,6 +70,7 @@ namespace CrushMe.Core.Services
             };
 
             RavenSession.Store(crush);
+            RavenSession.SaveChanges();
 
             return new CrushResult() {
                 Success = true,
@@ -83,7 +85,7 @@ namespace CrushMe.Core.Services
             List<Crush.Candidate> candidates = new List<Crush.Candidate>();
             int friendsToTake = 5;
 
-            if (target.GenderPreference == UserGender.Unknown || crusher.GenderPreference == target.GenderPreference)
+            if (target.GenderPreference == UserGender.Unknown || crusher.Gender == target.GenderPreference)
             {
                 candidates.Add(new Crush.Candidate()
                 {
@@ -102,7 +104,7 @@ namespace CrushMe.Core.Services
                 var friends = RavenSession.Load<User>(targetFriendsList.FriendsIds).ToList();
                 if (target.GenderPreference != UserGender.Unknown)
                 {
-                    friends = friends.Where(x => x.GenderPreference == target.GenderPreference).ToList();
+                    friends = friends.Where(x => x.Gender == target.GenderPreference).ToList();
                 }
                 candidates.AddRange(
                     friends.OrderBy(x => rand.Next(friends.Count())).Take(friendsToTake)
@@ -118,12 +120,10 @@ namespace CrushMe.Core.Services
 
             if (target.GenderPreference != UserGender.Unknown)
             {
-                otherCandidates.Where(x => x.GenderPreference == target.GenderPreference);
+                otherCandidates = otherCandidates.Where(x => x.Gender == target.GenderPreference);
             }
 
             candidates.AddRange(otherCandidates.ToList().Select(x => new Crush.Candidate() { Name = x.Name, UserId = x.Id, Selected = false }));
-
-            
 
             candidates.Shuffle();
 

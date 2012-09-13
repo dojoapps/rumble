@@ -43,13 +43,14 @@ namespace CrushMe.Web.Controllers
         {
             var crushesList = RavenSession.Query<Crush>().Where(x => x.CrusherId == UserId && x.ParentCrushId == null)
                 .OrderByDescending(x => x.DateCreated)
-                .Skip(page).Take(10)
-                .MapTo<CrushSentViewModel>();
+                .Skip(page).Take(10).ToList();
+
+            var crushModel = crushesList.MapTo<CrushSentViewModel>();
 
             return Json(new CrushesSentListViewModel()
             {
                 Page = page,
-                Crushes = crushesList
+                Crushes = crushModel
             }, JsonRequestBehavior.AllowGet);
         }
     }
