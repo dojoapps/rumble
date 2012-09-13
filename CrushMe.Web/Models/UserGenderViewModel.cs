@@ -6,10 +6,8 @@ using System.Web;
 
 namespace CrushMe.Web.Models
 {
-    public class UserGenderViewModel
+    public class PreferencesViewModel
     {
-        public UserGender Gender { get; set; }
-
-        public UserGender Preference { get; set; }
+        public UserGender GenderPreference { get; set; }
     }
 }

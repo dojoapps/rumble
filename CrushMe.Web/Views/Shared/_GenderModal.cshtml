@@ -1,0 +1,26 @@
+﻿@model CrushMe.Web.Models.PreferencesViewModel
+<div class="modal fade gender-modal" tabindex="-1" role="dialog" id="preferences-dialog">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Escolha suas preferências</h3>
+  </div>
+  <div class="modal-body">
+    <div class="chosen-candidate-list">
+        <em>Estas informações não são compartilhadas com ninguém.</em>
+       
+        <div class="gender-group">
+            <strong>Procuro:</strong>
+            <select name="Preference" id="gender-preference">
+                <option value="">Escolha uma opção</option>
+                <option value="Male">Homens</option>
+                <option value="Female">Mulheres</option>
+                <option value="Unknown">Tanto faz</option>
+            </select>
+        </div">
+    </div>
+  </div>
+  <div class="modal-footer">
+      <span class="preference-message"></span>
+    <button class="btn btn-primary">Salvar</button>
+  </div>
+</div>

@@ -22,7 +22,9 @@
                         {
                             <a href="/dashboard" >Meus crushes</a>
                             <a href="javascript:void();" class="crush-new-modal">Envie um crush!</a>
+                            <a href="/preferences" id="preferences-btn">Preferências</a>
                             <a href="javascript:sendRequestViaMultiFriendSelector()">Chame seus amigos!</a>
+                            
                         } else {
                             <a href="https://apps.facebook.com/crushmeapp/">Login</a>
                         }
@@ -57,7 +59,7 @@
                 <span class="candidate-chosen"></span>
                 <button class="btn btn-primary">Enviar crush!</button>
               </div>
-            </div>
+            </div>          
             
             <script id="candidate-item-template" type="text/x-handlebars-template">
                 <div class="candidate" data-target-id="{{FbId}}">
@@ -65,6 +67,7 @@
                     <span class="candidate-name">{{Name}}</span>
                 </div>
            </script>
+            
             <script>
                 $(function () {
                     var newCrushDialog = $("#crush-new"),
@@ -72,9 +75,12 @@
                         candidateList = newCrushDialog.find(".candidate-list"),
                         loader = $('<div class="ajax-loader"></div>').insertBefore(candidateList).hide(),
                         candidateTemplate = Handlebars.compile(document.getElementById("candidate-item-template").innerHTML),
+                        showGenderModal = @ViewBag.ShowGenderModal,
                         selectedCandidateId = null,
                         page = 0,
                         lastRequest = null;
+
+                    
 
                     newCrushDialog.modal({ show: false });
                     autocomplete.data("lastval", "");
@@ -148,9 +154,48 @@
 
                     $(document).on("click", ".crush-new-modal", function () {
                         autocomplete.val("");
-                        fetchCandidate();
-                        
+                        fetchCandidate();                        
                     });
+
+                    var preferenceButton = $("#preferences-btn").on("click",function(ev) {
+                        $("#preferences-dialog").remove();
+                        ev.preventDefault();
+                        $.ajax({
+                            url: "/preferences",
+                            type: "GET",
+                            dataType: "HTML"
+                        }).done(function (modal) {
+                            var modal = $(modal).appendTo(document.body).modal();
+                            modal.on("click",".btn-primary",function() {
+                                var self = $(this),
+                                    val = $("#gender-preference").val();
+
+                                if ( val.length > 0 ) {
+                                    $.ajax({
+                                        url: "/preferences",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data : {
+                                            "GenderPreference" :  val
+                                        }
+                                    }).done(function(data) {
+                                        if ( data.success === true ) {
+                                            modal.modal("hide").remove();
+                                        }
+                                    });
+                                } else {
+                                    modal.find(".preference-message").text("Escolha uma das opções acima!");
+                                    setTimeout(function() {
+                                        modal.find(".preference-message").text("");
+                                    }, 2000);
+                                }
+                            });
+                        });
+                    });
+
+                    if ( showGenderModal === true ) {
+                        preferenceButton.trigger("click");
+                    }
                 });
             </script>
         }

@@ -14,7 +14,7 @@ namespace CrushMe.Web.Infrastructure.AutoMapperProfiles
         protected override void Configure()
         {
             CreateMap<Crush, CrushReceivedViewModel>()
-                .ForMember(x => x.Id, o => o.MapFrom(m => m.Id))
+                .ForMember(x => x.Id, o => o.MapFrom(m => m.Id.ToIntId()))
                 .ForMember(x => x.DateSent, o => o.MapFrom(m => DateTime.UtcNow.Subtract(m.DateCreated).ToReadableString()))
                 .ForMember(x => x.Status, o => o.MapFrom(m => m.Status))
                 .ForMember(x => x.Candidates,

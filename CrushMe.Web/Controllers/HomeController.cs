@@ -68,6 +68,7 @@ namespace CrushMe.Web.Controllers
                             Id = RavenSession.BuildRavenId<User>(id),
                             IsActive = true,
                             Name = (string)me.name,
+                            GenderPreference = UserGender.Unknown,
                             Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown
                         };
 

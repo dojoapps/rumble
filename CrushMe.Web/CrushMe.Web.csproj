@@ -164,6 +164,7 @@
     <Compile Include="Controllers\CrushController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CrushListController.cs" />
+    <Compile Include="Controllers\PreferencesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -243,7 +244,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\FacebookAuth.cshtml" />
     <Content Include="Views\Crush\_CrushChosenModal.cshtml" />
-    <Content Include="Views\Shared\_GenderModal.cshtml.cshtml" />
+    <Content Include="Views\Shared\_GenderModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

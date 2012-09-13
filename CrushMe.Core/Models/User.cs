@@ -22,8 +22,8 @@ namespace CrushMe.Core.Models
 
         public bool IsActive { get; set; }
 
-        public UserGender? Gender { get; set; }
+        public UserGender Gender { get; set; }
 
-        public UserGender? GenderPreference { get; set; }
+        public UserGender GenderPreference { get; set; }
     }
 }

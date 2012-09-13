@@ -39,9 +39,13 @@ namespace CrushMe.Web.Controllers
                 }
                 else
                 {
-                    if (CurrentUser.Gender == UserGender.Unknown || CurrentUser.GenderPreference == UserGender.Unknown)
+                    if (CurrentUser.Gender == UserGender.Unknown || CurrentUser.GenderPreference == UserGender.Unknown || CurrentUser.GenderPreference == null)
                     {
-                        ViewBag.ShowGenderModal = true;
+                        ViewBag.ShowGenderModal = "true";
+                    }
+                    else
+                    {
+                        ViewBag.ShowGenderModal = "false";
                     }
 
                     UserId = CurrentUser.Id;

@@ -125,7 +125,7 @@
                          type: "POST",
                          dataType: "json"
                      }).done(function (data) {
-                         modal.modal("hide");
+                         modal.modal("hide").remove();
                          modalOpen = false;
                          window.refreshCrushes();
                      });
@@ -140,7 +140,7 @@
                              candidateFbId : chosenId
                          }
                      }).done(function (data) {
-                         modal.modal("hide");
+                         modal.modal("hide").remove();
                          modalOpen = false;
                          window.refreshCrushes();
                      });
@@ -151,7 +151,7 @@
                  modalOpen = true;
                  modal.on("click", ".btn-primary", function () {
                      modalOpen = false;
-                     modal.modal("hide");
+                     modal.modal("hide").remove();
                  });
 
                  modal.find(".other-candidate-picutre").tooltip();
