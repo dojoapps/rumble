@@ -46,7 +46,7 @@ namespace CrushMe.Core.Tasks.UserTasks
             {
                 if (friendsDocs[i] == null)
                 {
-                    dynamic friendData = friendsData[i];
+                    dynamic friendData = friendsList[i];
 
                     DocumentSession.Store(new User()
                     {
