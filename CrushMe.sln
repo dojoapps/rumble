@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Core", "CrushMe.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrushMe.Web", "CrushMe.Web\CrushMe.Web.csproj", "{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.CrushMe", "Testing.CrushMe\Testing.CrushMe.csproj", "{89C4F9E5-BA55-425A-9821-C6A2BE0A6415}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC0C3C6B-70F2-4F47-8F12-27BCAA1EA938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89C4F9E5-BA55-425A-9821-C6A2BE0A6415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89C4F9E5-BA55-425A-9821-C6A2BE0A6415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89C4F9E5-BA55-425A-9821-C6A2BE0A6415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89C4F9E5-BA55-425A-9821-C6A2BE0A6415}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

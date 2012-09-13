@@ -1,4 +1,5 @@
 ﻿using CrushMe.Core.Indexes;
+using CrushMe.Core.Tasks;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using Raven.Client;
@@ -19,7 +20,7 @@ namespace CrushMe.Web.Infrastructure
         {
             var documentStore = new DocumentStore()
             {
-                DefaultDatabase = "Grupando",
+                DefaultDatabase = "CrushMe",
                 ConnectionStringName = "RavenDB"
             }.Initialize();
 
@@ -34,6 +35,8 @@ namespace CrushMe.Web.Infrastructure
             this.Bind<IDocumentStore>().ToConstant(documentStore).InSingletonScope();
 
             this.Bind<IDocumentSession>().ToMethod(x => documentStore.OpenSession()).InRequestScope();
+
+            TaskExecutor.DocumentStore = documentStore;
         }
     }
 }

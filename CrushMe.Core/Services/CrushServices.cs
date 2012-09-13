@@ -19,13 +19,13 @@ namespace CrushMe.Core.Services
         public string Message { get; set; }
     }
 
-    public class CrushServices
+    public class CrushService
     {
         public const int CrushCandidatesLength = 10;
 
         private readonly IDocumentSession RavenSession;
 
-        public CrushServices(IDocumentSession session)
+        public CrushService(IDocumentSession session)
         {
             this.RavenSession = session;
         }

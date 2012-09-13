@@ -11,6 +11,7 @@ namespace CrushMe.Web.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using CrushMe.Web.Infrastructure;
+    using CrushMe.Common.Infrastructure;
 
     public static class NinjectWebCommon 
     {
@@ -55,6 +56,8 @@ namespace CrushMe.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Load<RavenModule>();
+
+            kernel.Bind<IFacebookClient>().To<FacebookClient>();
         }        
     }
 }

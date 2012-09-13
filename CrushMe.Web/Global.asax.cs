@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrushMe.Core.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,13 @@ namespace CrushMe.Web
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
+        public MvcApplication()
+        {
+            EndRequest += (sender, args) =>
+            {
+                TaskExecutor.StartExecuting();
+            };
+        }
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

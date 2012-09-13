@@ -30,17 +30,21 @@ namespace CrushMe.Web.Controllers
 
             if (Request.IsAuthenticated)
             {
-                CurrentUser = RavenSession.Load<User>(UserId);
-
-                if (CurrentUser.Gender == UserGender.Unknown || CurrentUser.GenderPreference == UserGender.Unknown)
-                {
-                    ViewBag.ShowGenderModal = true;
-                }
+                CurrentUser = RavenSession.Load<User>(User.Identity.Name);
 
                 if (CurrentUser == null)
                 {
                     FormsAuthentication.SignOut();
                     filterContext.Result = new RedirectResult("/");
+                }
+                else
+                {
+                    if (CurrentUser.Gender == UserGender.Unknown || CurrentUser.GenderPreference == UserGender.Unknown)
+                    {
+                        ViewBag.ShowGenderModal = true;
+                    }
+
+                    UserId = CurrentUser.Id;
                 }
             }
         }

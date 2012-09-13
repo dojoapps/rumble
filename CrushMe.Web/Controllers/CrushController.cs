@@ -23,7 +23,7 @@ namespace CrushMe.Web.Controllers
         [POST("/crush/new")]
         public ActionResult CreateCrush(long targetId)
         {
-            var crushService = new CrushServices(RavenSession);
+            var crushService = new CrushService(RavenSession);
 
             var crush = crushService.Crush(UserId.ToLongId(), targetId, null);
 

@@ -15,6 +15,7 @@ using CrushMe.Web.Helpers;
 using CrushMe.Core.Tasks;
 using CrushMe.Core.Tasks.UserTasks;
 using CrushMe.Core.Helpers;
+using CrushMe.Common.Infrastructure;
 
 namespace CrushMe.Web.Controllers
 {
@@ -23,9 +24,14 @@ namespace CrushMe.Web.Controllers
     {
         public IDocumentSession RavenSession { get; set; }
 
-        public HomeController(IDocumentSession session)
+        private IFacebookClient client;
+
+        private IFormsAuthentication formsAuth;
+
+        public HomeController(IDocumentSession session, IFacebookClient client)
         {
             RavenSession = session;
+            this.client = client;
         }
 
         //
@@ -33,7 +39,7 @@ namespace CrushMe.Web.Controllers
         [Route("/")]
         public ActionResult Index(string signed_request, string error)
         {
-            var client = new FacebookClient();
+            //var client = new FacebookClient();
             client.AppId = ConfigurationManager.AppSettings["Facebook_AppId"];
             client.AppSecret = ConfigurationManager.AppSettings["Facebook_AppSecret"];
             dynamic jsonRequest;
@@ -49,7 +55,7 @@ namespace CrushMe.Web.Controllers
                 try
                 {
                     dynamic me = client.Get("me");
-
+                    
                     long id = 0;
                     long.TryParse(me.id, out id);
 
@@ -76,21 +82,7 @@ namespace CrushMe.Web.Controllers
                         }
                     }
 
-                    
-
-                    // Atualiza os amigos do usuários
-                    dynamic friendsDynamic = client.Get("me/friends");
-                    List<dynamic> friends = JsonConvert.DeserializeObject<List<dynamic>>(friendsDynamic.data.ToString());
-
-                    var userFriends = new UserFriends()
-                    {
-                        Id = RavenSession.BuildRavenId<UserFriends>(id),
-                        FriendsIds = friends.Select(x => RavenSession.BuildRavenId<UserFriends>((long)x.id)).ToList()
-                    };
-
-                    RavenSession.Store(userFriends);
-
-                    TaskExecutor.ExcuteLater(new ParseUserFriendsTask(id, friends.Select(x => (long)x.id).ToList()));
+                    TaskExecutor.ExcuteLater(new ParseUserFriendsTask(id, client.AccessToken));
 
                     RavenSession.SaveChanges();
 

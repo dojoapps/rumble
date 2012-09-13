@@ -81,6 +81,8 @@
     <Compile Include="Indexes\Crushes_ByUser.cs" />
     <Compile Include="Indexes\Users_Index.cs" />
     <Compile Include="Infrastructure\AutoMapperExtensions.cs" />
+    <Compile Include="Infrastructure\IFacebookClient.cs" />
+    <Compile Include="Infrastructure\IFormsAuthentication.cs" />
     <Compile Include="Models\Crush.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserFriends.cs" />
