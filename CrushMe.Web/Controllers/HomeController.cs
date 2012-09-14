@@ -78,7 +78,7 @@ namespace CrushMe.Web.Controllers
                     {
                         user.IsActive = true;
 
-                        if ( me.gender ) {
+                        if ( !string.IsNullOrEmpty(me.gender) ) {
                             user.Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown;
                         }
                     }
