@@ -20,7 +20,6 @@ namespace CrushMe.Web.Infrastructure
         {
             var documentStore = new DocumentStore()
             {
-                DefaultDatabase = "CrushMe",
                 ConnectionStringName = "RavenDB"
             }.Initialize();
 
