@@ -11,6 +11,7 @@ namespace CrushMe.Web.Controllers
     public class TestController : Controller
     {
         [GET("/foo")]
+        [AllowAnonymous]
         public ActionResult Dump()
         {
             return Content(ConfigurationManager.ConnectionStrings["RavenDB"].ToString());
