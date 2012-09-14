@@ -9,5 +9,6 @@ namespace CrushMe.Common.Infrastructure
     public interface IFormsAuthentication
     {
         void SetAuthCookie(string name, bool permanentCookie);
+        void SignOut();
     }
 }
