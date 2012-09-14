@@ -89,8 +89,6 @@ namespace CrushMe.Web.Controllers
         [Route("/canvas")]
         public ActionResult Canvas(string signed_request, string error)
         {
-            //var client = new FacebookClient();
-            
             dynamic jsonRequest;
             
             if (!string.IsNullOrEmpty(signed_request) && client.TryParseSignedRequest(signed_request, out jsonRequest))
