@@ -36,8 +36,8 @@ namespace CrushMe.Web.Controllers
 
         //
         // GET: /Home/
-        [Route("/")]
-        public ActionResult Index(string signed_request, string error)
+        [Route("/canvas")]
+        public ActionResult Canvas(string signed_request, string error)
         {
             //var client = new FacebookClient();
             client.AppId = ConfigurationManager.AppSettings["Facebook_AppId"];
@@ -102,7 +102,7 @@ namespace CrushMe.Web.Controllers
             }
         }
 
-        [GET("/bem-vindo")]
+        [GET("/")]
         public ActionResult Welcome()
         {
             return View();

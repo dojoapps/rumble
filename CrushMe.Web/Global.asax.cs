@@ -16,10 +16,10 @@ namespace CrushMe.Web
     {
         public MvcApplication()
         {
-            /*EndRequest += (sender, args) =>
+            EndRequest += (sender, args) =>
             {
                 TaskExecutor.StartExecuting();
-            };*/
+            };
         }
         protected void Application_Start()
         {
