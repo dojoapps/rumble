@@ -82,7 +82,7 @@ namespace CrushMe.Web.Controllers
             }
             catch (FacebookOAuthException ex)
             {
-                return View("FacebookAuth");
+                return RedirectToAction("Welcome");
             }
         }
 
@@ -95,20 +95,14 @@ namespace CrushMe.Web.Controllers
             {
                 if (jsonRequest == null || jsonRequest.oauth_token == null )
                 {
-                    return View("FacebookAuth");
+                    return RedirectToAction("Welcome");
                 }
 
                 return Login(jsonRequest.oauth_token.ToString());
                 
             }
-            else if (error == "access_denied")
-            {
-                return RedirectToAction("Welcome");
-            }
-            else
-            {
-                return View("FacebookAuth");
-            }
+
+            return RedirectToAction("Welcome");
         }
 
         [GET("/")]
