@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CrushMe.Common.Infrastructure
 {
-    public class IFormsAuthentication
+    public interface IFormsAuthentication
     {
+        void SetAuthCookie(string name, bool permanentCookie);
     }
 }
