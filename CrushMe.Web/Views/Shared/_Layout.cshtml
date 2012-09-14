@@ -223,14 +223,21 @@
            
         }
 
-        $("#fb-login").on("click", function(ev) {
-            ev.preventDefault();
-            FB.login(function(response) {
+        @if (!Request.IsAuthenticated) {
+
+        <text>
+            $("#fb-login").on("click", function(ev) {
+                ev.preventDefault();
+                FB.login(function(response) {});
+            });
+
+            FB.Event.subscribe("auth.authResponseChange", function(response) {
                 if ( response.authResponse ) {
                     window.location.href = "/login?accessToken=" + response.authResponse.accessToken;
                 }
             });
-        });
+        </text>
+        }
 
         // Additional initialization code here
     };
