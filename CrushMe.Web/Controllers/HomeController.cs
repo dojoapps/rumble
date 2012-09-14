@@ -80,7 +80,7 @@ namespace CrushMe.Web.Controllers
 
                 return RedirectToAction("Index", "CrushList");
             }
-            catch (FacebookOAuthException ex)
+            catch (FacebookOAuthException e)
             {
                 return RedirectToAction("Welcome");
             }
