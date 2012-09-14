@@ -18,7 +18,7 @@ namespace CrushMe.Web.Infrastructure
     {
         public override void Load()
         {
-            var documentStore = new DocumentStore()
+            /*var documentStore = new DocumentStore()
             {
                 ConnectionStringName = "RavenDB"
             }.Initialize();
@@ -35,7 +35,7 @@ namespace CrushMe.Web.Infrastructure
 
             this.Bind<IDocumentSession>().ToMethod(x => documentStore.OpenSession()).InRequestScope();
 
-            TaskExecutor.DocumentStore = documentStore;
+            TaskExecutor.DocumentStore = documentStore;*/
         }
     }
 }

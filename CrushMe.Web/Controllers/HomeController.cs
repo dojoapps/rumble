@@ -125,12 +125,5 @@ namespace CrushMe.Web.Controllers
         {
             return View();
         }
-
-        [GET("/foo")]
-        public ActionResult Dump()
-        {
-            return Content(ConfigurationManager.ConnectionStrings["RavenDB"].ToString());                 
-        }
-
     }
 }
