@@ -26,7 +26,7 @@
                             <a href="javascript:sendRequestViaMultiFriendSelector()">Chame seus amigos!</a>
                             
                         } else {
-                            <a href="https://apps.facebook.com/crushmeapp/">Login</a>
+                            <a id="fb-login" href="https://apps.facebook.com/crushmeapp/">Login</a>
                         }
                         <a href="/como-funciona">Como funciona</a>                        
                         <a href="/sobre">Sobre</a>
@@ -220,6 +220,15 @@
         function requestCallback(response) {
            
         }
+
+        $("#fb-login").on("click", function(ev) {
+            ev.preventDefault();
+            FB.login(function(response) {
+                if ( response.authResponse ) {
+                    window.location.href = "/login?accessToken=" + response.authResponse.accessToken;
+                }
+            });
+        });
 
         // Additional initialization code here
     };

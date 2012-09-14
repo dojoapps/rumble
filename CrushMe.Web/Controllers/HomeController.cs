@@ -33,15 +33,64 @@ namespace CrushMe.Web.Controllers
             RavenSession = session;
             this.client = client;
         }
+        [GET("/login")]
+        public ActionResult Login(string accessToken)
+        {
+            client.AppId = ConfigurationManager.AppSettings["Facebook_AppId"];
+            client.AppSecret = ConfigurationManager.AppSettings["Facebook_AppSecret"];
 
-        //
-        // GET: /Home/
+            client.AccessToken = accessToken;
+            try
+            {
+                dynamic me = client.Get("me");
+
+                long id = 0;
+                long.TryParse(me.id, out id);
+
+                var user = RavenSession.Load<User>(id);
+
+                if (user == null)
+                {
+                    user = new User()
+                    {
+                        Id = RavenSession.BuildRavenId<User>(id),
+                        IsActive = true,
+                        Name = (string)me.name,
+                        GenderPreference = UserGender.Unknown,
+                        Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown
+                    };
+
+                    RavenSession.Store(user);
+                }
+                else if (user.IsActive == false)
+                {
+                    user.IsActive = true;
+
+                    if (!string.IsNullOrEmpty(me.gender))
+                    {
+                        user.Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown;
+                    }
+                }
+
+                TaskExecutor.ExcuteLater(new ParseUserFriendsTask(id, client.AccessToken));
+
+                RavenSession.SaveChanges();
+
+                FormsAuthentication.SetAuthCookie(user.Id, false);
+
+                return RedirectToAction("Index", "CrushList");
+            }
+            catch (FacebookOAuthException ex)
+            {
+                return View("FacebookAuth");
+            }
+        }
+
         [Route("/canvas")]
         public ActionResult Canvas(string signed_request, string error)
         {
             //var client = new FacebookClient();
-            client.AppId = ConfigurationManager.AppSettings["Facebook_AppId"];
-            client.AppSecret = ConfigurationManager.AppSettings["Facebook_AppSecret"];
+            
             dynamic jsonRequest;
             
             if (!string.IsNullOrEmpty(signed_request) && client.TryParseSignedRequest(signed_request, out jsonRequest))
@@ -51,54 +100,16 @@ namespace CrushMe.Web.Controllers
                     return View("FacebookAuth");
                 }
 
-                client.AccessToken = jsonRequest.oauth_token.ToString();
-                try
-                {
-                    dynamic me = client.Get("me");
-                    
-                    long id = 0;
-                    long.TryParse(me.id, out id);
-
-                    var user = RavenSession.Load<User>(id);
-
-                    if (user == null)
-                    {
-                        user = new User()
-                        {
-                            Id = RavenSession.BuildRavenId<User>(id),
-                            IsActive = true,
-                            Name = (string)me.name,
-                            GenderPreference = UserGender.Unknown,
-                            Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown
-                        };
-
-                        RavenSession.Store(user);
-                    }
-                    else if (user.IsActive == false)
-                    {
-                        user.IsActive = true;
-
-                        if ( !string.IsNullOrEmpty(me.gender) ) {
-                            user.Gender = (me.gender == "male") ? UserGender.Male : (me.gender == "female") ? UserGender.Female : UserGender.Unknown;
-                        }
-                    }
-
-                    TaskExecutor.ExcuteLater(new ParseUserFriendsTask(id, client.AccessToken));
-
-                    RavenSession.SaveChanges();
-
-                    FormsAuthentication.SetAuthCookie(user.Id, false);
-
-                    return RedirectToAction("Index", "CrushList");
-                }
-                catch (FacebookOAuthException ex)
-                {
-                    return View("FacebookAuth");
-                }
+                return Login(jsonRequest.oauth_token.ToString());
+                
             }
-            else 
+            else if (error == "access_denied")
             {
-               return View("FacebookAuth");
+                return RedirectToAction("Welcome");
+            }
+            else
+            {
+                return View("FacebookAuth");
             }
         }
 
