@@ -96,7 +96,11 @@ namespace CrushMe.Web.Controllers
                 }
 
                 return Login(jsonRequest.oauth_token.ToString());
-                
+
+            }
+            else if (error == "access_denied")
+            {
+                return View("FacebookAuth");
             }
 
             return RedirectToAction("Welcome");

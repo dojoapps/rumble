@@ -114,9 +114,9 @@ namespace CrushMe.Core.Services
                         Name = x.Name
                     })
                 );
-            }            
+            }
 
-            var otherCandidates = RavenSession.Query<User>().Customize(x => x.RandomOrdering()).Take(5);
+            var otherCandidates = RavenSession.Query<User>().Customize(x => x.RandomOrdering()).Take(10 - candidates.Count);
 
             if (target.GenderPreference != UserGender.Unknown)
             {
