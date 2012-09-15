@@ -36,9 +36,6 @@ namespace CrushMe.Web.Controllers
         [GET("/login")]
         public ActionResult Login(string accessToken)
         {
-            client.AppId = ConfigurationManager.AppSettings["Facebook_AppId"];
-            client.AppSecret = ConfigurationManager.AppSettings["Facebook_AppSecret"];
-
             client.AccessToken = accessToken;
             try
             {
